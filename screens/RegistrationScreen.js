@@ -1,7 +1,9 @@
 import React from "react";
+import { Ionicons } from "@expo/vector-icons";
 import {
   StyleSheet,
   View,
+  Image,
   ImageBackground,
   Text,
   TextInput,
@@ -16,6 +18,15 @@ export default function RegistrationScreen() {
         style={styles.image}
       >
         <View style={styles.form}>
+          <View style={styles.avatarContainer}>
+            <Image
+              style={styles.avatarImage}
+              source={require("../assets/images/backgroung.jpg")}
+            />
+            <TouchableOpacity style={styles.avatarButton} activeOpacity={0.8}>
+              <Ionicons name="add-circle-outline" size={25} color={"#FF6C00"} />
+            </TouchableOpacity>
+          </View>
           <Text style={styles.title}>Registration</Text>
           <TextInput style={styles.input} placeholder="Name" />
           <TextInput style={styles.input} placeholder="Email" />
@@ -55,6 +66,24 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 25,
     borderTopRightRadius: 25,
     backgroundColor: "white",
+  },
+  avatarContainer: {
+    position: "absolute",
+    top: -60,
+  },
+  avatarImage: {
+    width: 120,
+    height: 120,
+    borderRadius: 16,
+    backgroundColor: "#F6F6F6",
+  },
+  avatarButton: {
+    width: 25,
+    height: 25,
+    position: "absolute",
+    bottom: 14,
+    right: 0,
+    transform: [{ translateX: 13.5 }],
   },
   title: {
     marginBottom: 32,
