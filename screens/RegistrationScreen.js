@@ -27,9 +27,11 @@ export default function RegistrationScreen() {
           <TouchableOpacity style={styles.button} activeOpacity={0.8}>
             <Text style={styles.buttonText}>Sign up</Text>
           </TouchableOpacity>
-          <Text style={styles.text}>
-            Do you already have an account? Sign in
-          </Text>
+          <TouchableOpacity activeOpacity={0.8}>
+            <Text style={styles.text}>
+              Do you already have an account? Sign in
+            </Text>
+          </TouchableOpacity>
         </View>
       </ImageBackground>
     </View>
@@ -47,6 +49,7 @@ const styles = StyleSheet.create({
   },
   form: {
     paddingTop: 92,
+    paddingBottom: 78,
     paddingHorizontal: 16,
     alignItems: "center",
     borderTopLeftRadius: 25,
@@ -75,16 +78,21 @@ const styles = StyleSheet.create({
   button: {
     width: "100%",
     alignItems: "center",
+    marginTop: 27,
+    marginBottom: 16,
     paddingHorizontal: 32,
     paddingVertical: 16,
     borderRadius: 100,
     backgroundColor: "#FF6C00",
   },
   buttonText: {
-    fontStyle: "normal",
     fontSize: 16,
     lineHeight: 19,
     color: "white",
   },
-  text: {},
+  text: {
+    fontSize: 16,
+    lineHeight: 19,
+    color: "#1B4371",
+  },
 });
