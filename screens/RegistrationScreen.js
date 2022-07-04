@@ -1,5 +1,4 @@
 import React from "react";
-import { Ionicons } from "@expo/vector-icons";
 import {
   StyleSheet,
   View,
@@ -8,9 +7,15 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
+  Pressable,
 } from "react-native";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { useTogglePasswordVisibility } from "../hooks/useTogglePasswordVisibility";
 
 export default function RegistrationScreen() {
+  const { passwordVisibility, rightIcon, handlePasswordVisibility } =
+    useTogglePasswordVisibility();
+
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -32,9 +37,16 @@ export default function RegistrationScreen() {
           <TextInput style={styles.input} placeholder="Email" />
           <TextInput
             style={styles.input}
-            secureTextEntry={true}
+            secureTextEntry={passwordVisibility}
             placeholder="Password"
           />
+          <Pressable onPress={handlePasswordVisibility}>
+            <MaterialCommunityIcons
+              name={rightIcon}
+              size={22}
+              color="#212121"
+            />
+          </Pressable>
           <TouchableOpacity style={styles.button} activeOpacity={0.8}>
             <Text style={styles.buttonText}>Sign up</Text>
           </TouchableOpacity>
