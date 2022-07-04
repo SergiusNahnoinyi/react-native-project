@@ -35,18 +35,23 @@ export default function RegistrationScreen() {
           <Text style={styles.title}>Registration</Text>
           <TextInput style={styles.input} placeholder="Name" />
           <TextInput style={styles.input} placeholder="Email" />
-          <TextInput
-            style={styles.input}
-            secureTextEntry={passwordVisibility}
-            placeholder="Password"
-          />
-          <Pressable onPress={handlePasswordVisibility}>
-            <MaterialCommunityIcons
-              name={rightIcon}
-              size={22}
-              color="#212121"
+          <View style={styles.inputContainer}>
+            <TextInput
+              style={styles.input}
+              secureTextEntry={passwordVisibility}
+              placeholder="Password"
             />
-          </Pressable>
+            <Pressable
+              style={styles.passwordVisibilityButton}
+              onPress={handlePasswordVisibility}
+            >
+              <MaterialCommunityIcons
+                name={rightIcon}
+                size={22}
+                color="#212121"
+              />
+            </Pressable>
+          </View>
           <TouchableOpacity style={styles.button} activeOpacity={0.8}>
             <Text style={styles.buttonText}>Sign up</Text>
           </TouchableOpacity>
@@ -104,6 +109,16 @@ const styles = StyleSheet.create({
     letterSpacing: 0.01,
     color: "#212121",
   },
+  inputContainer: {
+    width: "100%",
+    position: "relative",
+    marginBottom: 43,
+  },
+  passwordVisibilityButton: {
+    position: "absolute",
+    bottom: 30,
+    right: 16,
+  },
   input: {
     width: "100%",
     height: 50,
@@ -119,7 +134,6 @@ const styles = StyleSheet.create({
   button: {
     width: "100%",
     alignItems: "center",
-    marginTop: 27,
     marginBottom: 16,
     paddingHorizontal: 32,
     paddingVertical: 16,
