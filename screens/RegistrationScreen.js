@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import {
   TouchableWithoutFeedback,
   Keyboard,
+  KeyboardAvoidingView,
+  Platform,
   StyleSheet,
   View,
   Image,
@@ -18,85 +20,107 @@ export default function RegistrationScreen() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isKeyboardShown, setIsKeyboardShown] = useState(false);
   const { passwordVisibility, rightIcon, handlePasswordVisibility } =
     useTogglePasswordVisibility();
+
+  const hideKeyboard = () => {
+    setIsKeyboardShown(false);
+    Keyboard.dismiss();
+  };
 
   const handleSubmit = () => {
     console.log(name, email, password);
     setName("");
     setEmail("");
     setPassword("");
+    hideKeyboard();
   };
 
   return (
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+    <TouchableWithoutFeedback onPress={hideKeyboard}>
       <View style={styles.container}>
         <ImageBackground
           source={require("../assets/images/backgroung.jpg")}
           style={styles.imageBackground}
         >
-          <View style={styles.form}>
-            <View style={styles.avatarContainer}>
-              <Image
-                style={styles.avatarImage}
-                source={require("../assets/images/backgroung.jpg")}
-              />
-              <TouchableOpacity style={styles.avatarButton} activeOpacity={0.8}>
-                <Ionicons
-                  name="add-circle-outline"
-                  size={25}
-                  color={"#FF6C00"}
+          <KeyboardAvoidingView
+            behavior={Platform.OS == "ios" ? "padding" : "paddingBottom"}
+          >
+            <View
+              style={{
+                ...styles.form,
+                paddingBottom: isKeyboardShown ? 16 : 78,
+              }}
+            >
+              <View style={styles.avatarContainer}>
+                <Image
+                  style={styles.avatarImage}
+                  source={require("../assets/images/backgroung.jpg")}
                 />
+                <TouchableOpacity
+                  style={styles.avatarButton}
+                  activeOpacity={0.8}
+                >
+                  <Ionicons
+                    name="add-circle-outline"
+                    size={25}
+                    color={"#FF6C00"}
+                  />
+                </TouchableOpacity>
+              </View>
+              <Text style={styles.formTitle}>Registration</Text>
+              <TextInput
+                style={styles.input}
+                placeholder="Name"
+                textContentType="name"
+                value={name}
+                onFocus={() => setIsKeyboardShown(true)}
+                onChangeText={(text) => setName(text)}
+              />
+              <TextInput
+                style={styles.input}
+                placeholder="Email"
+                textContentType="emailAddress"
+                value={email}
+                onFocus={() => setIsKeyboardShown(true)}
+                onChangeText={(text) => setEmail(text)}
+              />
+              <View style={styles.inputContainer}>
+                <TextInput
+                  style={[styles.input, { marginBottom: 0 }]}
+                  placeholder="Password"
+                  textContentType="password"
+                  value={password}
+                  secureTextEntry={passwordVisibility}
+                  onFocus={() => setIsKeyboardShown(true)}
+                  onChangeText={(text) => setPassword(text)}
+                />
+                <Pressable
+                  style={styles.passwordVisibilityButton}
+                  onPress={handlePasswordVisibility}
+                >
+                  <MaterialCommunityIcons
+                    name={rightIcon}
+                    size={22}
+                    color="#1B4371"
+                  />
+                </Pressable>
+              </View>
+              <TouchableOpacity
+                style={styles.submitButton}
+                activeOpacity={0.8}
+                onPress={handleSubmit}
+              >
+                <Text style={styles.submitButtonText}>Sign up</Text>
+              </TouchableOpacity>
+              <TouchableOpacity activeOpacity={0.8}>
+                <Text style={styles.loginLink}>
+                  Do you already have an account? Log in
+                </Text>
               </TouchableOpacity>
             </View>
-            <Text style={styles.formTitle}>Registration</Text>
-            <TextInput
-              style={styles.input}
-              placeholder="Name"
-              textContentType="name"
-              value={name}
-              onChangeText={(text) => setName(text)}
-            />
-            <TextInput
-              style={styles.input}
-              placeholder="Email"
-              textContentType="emailAddress"
-              value={email}
-              onChangeText={(text) => setEmail(text)}
-            />
-            <View style={styles.inputContainer}>
-              <TextInput
-                style={[styles.input, { marginBottom: 0 }]}
-                placeholder="Password"
-                textContentType="password"
-                value={password}
-                secureTextEntry={passwordVisibility}
-                onChangeText={(text) => setPassword(text)}
-              />
-              <Pressable
-                style={styles.passwordVisibilityButton}
-                onPress={handlePasswordVisibility}
-              >
-                <MaterialCommunityIcons
-                  name={rightIcon}
-                  size={22}
-                  color="#1B4371"
-                />
-              </Pressable>
-            </View>
-            <TouchableOpacity
-              style={styles.submitButton}
-              activeOpacity={0.8}
-              onPress={handleSubmit}
-            >
-              <Text style={styles.submitButtonText}>Sign up</Text>
-            </TouchableOpacity>
-            <TouchableOpacity activeOpacity={0.8}>
-              <Text style={styles.loginLink}>
-                Do you already have an account? Log in
-              </Text>
-            </TouchableOpacity>
-          </View>
+          </KeyboardAvoidingView>
         </ImageBackground>
       </View>
     </TouchableWithoutFeedback>
