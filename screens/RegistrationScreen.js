@@ -45,7 +45,7 @@ export default function RegistrationScreen() {
           style={styles.imageBackground}
         >
           <KeyboardAvoidingView
-            behavior={Platform.OS == "ios" ? "padding" : "paddingBottom"}
+            behavior={Platform.OS == "ios" ? "position" : ""}
           >
             <View
               style={{
