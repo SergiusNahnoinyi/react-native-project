@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   View,
@@ -13,14 +13,24 @@ import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useTogglePasswordVisibility } from "../hooks/useTogglePasswordVisibility";
 
 export default function RegistrationScreen() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const { passwordVisibility, rightIcon, handlePasswordVisibility } =
     useTogglePasswordVisibility();
+
+  const handleSubmit = () => {
+    console.log(name, email, password);
+    setName("");
+    setEmail("");
+    setPassword("");
+  };
 
   return (
     <View style={styles.container}>
       <ImageBackground
         source={require("../assets/images/backgroung.jpg")}
-        style={styles.image}
+        style={styles.imageBackground}
       >
         <View style={styles.form}>
           <View style={styles.avatarContainer}>
@@ -32,14 +42,29 @@ export default function RegistrationScreen() {
               <Ionicons name="add-circle-outline" size={25} color={"#FF6C00"} />
             </TouchableOpacity>
           </View>
-          <Text style={styles.title}>Registration</Text>
-          <TextInput style={styles.input} placeholder="Name" />
-          <TextInput style={styles.input} placeholder="Email" />
+          <Text style={styles.formTitle}>Registration</Text>
+          <TextInput
+            style={styles.input}
+            placeholder="Name"
+            textContentType="name"
+            value={name}
+            onChangeText={(text) => setName(text)}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Email"
+            textContentType="emailAddress"
+            value={email}
+            onChangeText={(text) => setEmail(text)}
+          />
           <View style={styles.inputContainer}>
             <TextInput
               style={styles.input}
               secureTextEntry={passwordVisibility}
               placeholder="Password"
+              textContentType="password"
+              value={password}
+              onChangeText={(text) => setPassword(text)}
             />
             <Pressable
               style={styles.passwordVisibilityButton}
@@ -48,16 +73,20 @@ export default function RegistrationScreen() {
               <MaterialCommunityIcons
                 name={rightIcon}
                 size={22}
-                color="#212121"
+                color="#1B4371"
               />
             </Pressable>
           </View>
-          <TouchableOpacity style={styles.button} activeOpacity={0.8}>
-            <Text style={styles.buttonText}>Sign up</Text>
+          <TouchableOpacity
+            style={styles.submitButton}
+            activeOpacity={0.8}
+            onPress={handleSubmit}
+          >
+            <Text style={styles.submitButtonText}>Sign up</Text>
           </TouchableOpacity>
           <TouchableOpacity activeOpacity={0.8}>
-            <Text style={styles.text}>
-              Do you already have an account? Sign in
+            <Text style={styles.loginLink}>
+              Do you already have an account? Log in
             </Text>
           </TouchableOpacity>
         </View>
@@ -70,7 +99,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  image: {
+  imageBackground: {
     flex: 1,
     justifyContent: "flex-end",
     resizeMode: "cover",
@@ -102,7 +131,7 @@ const styles = StyleSheet.create({
     right: 0,
     transform: [{ translateX: 13.5 }],
   },
-  title: {
+  formTitle: {
     marginBottom: 32,
     fontSize: 30,
     lineHeight: 35,
@@ -113,11 +142,6 @@ const styles = StyleSheet.create({
     width: "100%",
     position: "relative",
     marginBottom: 43,
-  },
-  passwordVisibilityButton: {
-    position: "absolute",
-    bottom: 30,
-    right: 16,
   },
   input: {
     width: "100%",
@@ -131,7 +155,12 @@ const styles = StyleSheet.create({
     borderColor: "#E8E8E8",
     backgroundColor: "#F6F6F6",
   },
-  button: {
+  passwordVisibilityButton: {
+    position: "absolute",
+    bottom: 30,
+    right: 16,
+  },
+  submitButton: {
     width: "100%",
     alignItems: "center",
     marginBottom: 16,
@@ -140,12 +169,12 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     backgroundColor: "#FF6C00",
   },
-  buttonText: {
+  submitButtonText: {
     fontSize: 16,
     lineHeight: 19,
     color: "white",
   },
-  text: {
+  loginLink: {
     fontSize: 16,
     lineHeight: 19,
     color: "#1B4371",
