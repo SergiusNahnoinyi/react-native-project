@@ -66,7 +66,7 @@ export default function RegistrationScreen() {
             />
             <View style={styles.inputContainer}>
               <TextInput
-                style={styles.input}
+                style={[styles.input, { marginBottom: 0 }]}
                 placeholder="Password"
                 textContentType="password"
                 value={password}
@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
   },
   passwordVisibilityButton: {
     position: "absolute",
-    bottom: 30,
+    bottom: 12.5,
     right: 16,
   },
   submitButton: {
