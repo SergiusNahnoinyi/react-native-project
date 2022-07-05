@@ -165,6 +165,7 @@ const styles = StyleSheet.create({
   },
   formTitle: {
     marginBottom: 32,
+    fontFamily: "Roboto-Bold",
     fontSize: 30,
     lineHeight: 35,
     letterSpacing: 0.01,
@@ -180,6 +181,7 @@ const styles = StyleSheet.create({
     height: 50,
     marginBottom: 16,
     paddingHorizontal: 16,
+    fontFamily: "Roboto-Regular",
     fontSize: 16,
     lineHeight: 19,
     borderWidth: 1,
@@ -202,11 +204,13 @@ const styles = StyleSheet.create({
     backgroundColor: "#FF6C00",
   },
   submitButtonText: {
+    fontFamily: "Roboto-Medium",
     fontSize: 16,
     lineHeight: 19,
     color: "white",
   },
   loginLink: {
+    fontFamily: "Roboto-Medium",
     fontSize: 16,
     lineHeight: 19,
     color: "#1B4371",
