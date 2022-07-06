@@ -22,6 +22,22 @@ export default function LoginScreen() {
   const [isKeyboardShown, setIsKeyboardShown] = useState(false);
   const { passwordVisibility, rightIcon, handlePasswordVisibility } =
     useTogglePasswordVisibility();
+  const [isInputFocused, setIsInputFocused] = useState({
+    name: false,
+    email: false,
+    password: false,
+  });
+
+  const handleInputFocus = (textInput) => {
+    setIsInputFocused({
+      [textInput]: true,
+    });
+  };
+  const handleInputBlur = (textInput) => {
+    setIsInputFocused({
+      [textInput]: false,
+    });
+  };
 
   const hideKeyboard = () => {
     setIsKeyboardShown(false);
@@ -51,20 +67,20 @@ export default function LoginScreen() {
                 paddingBottom: isKeyboardShown ? 16 : 78,
               }}
             >
-              <Text style={styles.formTitle}>Log in</Text>
+              <Text style={styles.formTitle}>Log in to your account</Text>
               <TextInput
                 style={[
                   styles.input,
-                  // isInputFocused.email && styles.inputFocused,
+                  isInputFocused.email && styles.inputFocused,
                 ]}
                 placeholder="Email"
                 textContentType="emailAddress"
                 value={email}
                 onFocus={() => {
                   setIsKeyboardShown(true);
-                  //   handleInputFocus("email");
+                  handleInputFocus("email");
                 }}
-                // onBlur={() => handleInputBlur("email")}
+                onBlur={() => handleInputBlur("email")}
                 onChangeText={(text) => setEmail(text)}
               />
               <View style={styles.inputContainer}>
@@ -72,7 +88,7 @@ export default function LoginScreen() {
                   style={[
                     styles.input,
                     { marginBottom: 0 },
-                    // isInputFocused.password && styles.inputFocused,
+                    isInputFocused.password && styles.inputFocused,
                   ]}
                   placeholder="Password"
                   textContentType="password"
@@ -80,9 +96,9 @@ export default function LoginScreen() {
                   secureTextEntry={passwordVisibility}
                   onFocus={() => {
                     setIsKeyboardShown(true);
-                    //   handleInputFocus("password");
+                    handleInputFocus("password");
                   }}
-                  // onBlur={() => handleInputBlur("password")}
+                  onBlur={() => handleInputBlur("password")}
                   onChangeText={(text) => setPassword(text)}
                 />
                 <Pressable
@@ -101,7 +117,7 @@ export default function LoginScreen() {
                 activeOpacity={0.8}
                 onPress={handleSubmit}
               >
-                <Text style={styles.submitButtonText}>Sign up</Text>
+                <Text style={styles.submitButtonText}>Log in</Text>
               </TouchableOpacity>
               <TouchableOpacity activeOpacity={0.8}>
                 <Text style={styles.loginLink}>
