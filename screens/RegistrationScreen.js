@@ -29,14 +29,14 @@ export default function RegistrationScreen() {
     password: false,
   });
 
-  const handleInputFocus = (textinput) => {
+  const handleInputFocus = (textInput) => {
     setIsInputFocused({
-      [textinput]: true,
+      [textInput]: true,
     });
   };
-  const handleInputBlur = (textinput) => {
+  const handleInputBlur = (textInput) => {
     setIsInputFocused({
-      [textinput]: false,
+      [textInput]: false,
     });
   };
 
