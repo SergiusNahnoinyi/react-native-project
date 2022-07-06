@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   TouchableWithoutFeedback,
   Keyboard,
@@ -15,6 +16,15 @@ import {
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 export default function LoginScreen() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = () => {
+    console.log(email, password);
+    setEmail("");
+    setPassword("");
+  };
+
   return (
     <TouchableWithoutFeedback>
       <View style={styles.container}>
@@ -39,13 +49,13 @@ export default function LoginScreen() {
                 ]}
                 placeholder="Email"
                 textContentType="emailAddress"
-                // value={email}
+                value={email}
                 // onFocus={() => {
                 //   setIsKeyboardShown(true);
                 //   handleInputFocus("email");
                 // }}
                 // onBlur={() => handleInputBlur("email")}
-                // onChangeText={(text) => setEmail(text)}
+                onChangeText={(text) => setEmail(text)}
               />
               <View style={styles.inputContainer}>
                 <TextInput
@@ -56,14 +66,14 @@ export default function LoginScreen() {
                   ]}
                   placeholder="Password"
                   textContentType="password"
-                  // value={password}
+                  value={password}
                   // secureTextEntry={passwordVisibility}
                   // onFocus={() => {
                   //   setIsKeyboardShown(true);
                   //   handleInputFocus("password");
                   // }}
                   // onBlur={() => handleInputBlur("password")}
-                  // onChangeText={(text) => setPassword(text)}
+                  onChangeText={(text) => setPassword(text)}
                 />
                 <Pressable
                   style={styles.passwordVisibilityButton}
@@ -79,7 +89,7 @@ export default function LoginScreen() {
               <TouchableOpacity
                 style={styles.submitButton}
                 activeOpacity={0.8}
-                // onPress={handleSubmit}
+                onPress={handleSubmit}
               >
                 <Text style={styles.submitButtonText}>Sign up</Text>
               </TouchableOpacity>
