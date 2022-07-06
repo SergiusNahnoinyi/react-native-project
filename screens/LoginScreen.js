@@ -14,10 +14,13 @@ import {
   Pressable,
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useTogglePasswordVisibility } from "../hooks/useTogglePasswordVisibility";
 
 export default function LoginScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { passwordVisibility, rightIcon, handlePasswordVisibility } =
+    useTogglePasswordVisibility();
 
   const handleSubmit = () => {
     console.log(email, password);
@@ -67,7 +70,7 @@ export default function LoginScreen() {
                   placeholder="Password"
                   textContentType="password"
                   value={password}
-                  // secureTextEntry={passwordVisibility}
+                  secureTextEntry={passwordVisibility}
                   // onFocus={() => {
                   //   setIsKeyboardShown(true);
                   //   handleInputFocus("password");
@@ -77,10 +80,10 @@ export default function LoginScreen() {
                 />
                 <Pressable
                   style={styles.passwordVisibilityButton}
-                  // onPress={handlePasswordVisibility}
+                  onPress={handlePasswordVisibility}
                 >
                   <MaterialCommunityIcons
-                    // name={rightIcon}
+                    name={rightIcon}
                     size={22}
                     color="#1B4371"
                   />
