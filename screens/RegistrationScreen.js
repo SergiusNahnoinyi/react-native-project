@@ -23,6 +23,22 @@ export default function RegistrationScreen() {
   const [isKeyboardShown, setIsKeyboardShown] = useState(false);
   const { passwordVisibility, rightIcon, handlePasswordVisibility } =
     useTogglePasswordVisibility();
+  const [isInputFocused, setIsInputFocused] = useState({
+    name: false,
+    email: false,
+    password: false,
+  });
+
+  const handleInputFocus = (textinput) => {
+    setIsInputFocused({
+      [textinput]: true,
+    });
+  };
+  const handleInputBlur = (textinput) => {
+    setIsInputFocused({
+      [textinput]: false,
+    });
+  };
 
   const hideKeyboard = () => {
     setIsKeyboardShown(false);
@@ -71,29 +87,51 @@ export default function RegistrationScreen() {
               </View>
               <Text style={styles.formTitle}>Registration</Text>
               <TextInput
-                style={styles.input}
+                style={[
+                  styles.input,
+                  isInputFocused.name && styles.inputFocused,
+                ]}
                 placeholder="Name"
                 textContentType="name"
                 value={name}
-                onFocus={() => setIsKeyboardShown(true)}
+                onFocus={() => {
+                  setIsKeyboardShown(true);
+                  handleInputFocus("name");
+                }}
+                onBlur={() => handleInputBlur("name")}
                 onChangeText={(text) => setName(text)}
               />
               <TextInput
-                style={styles.input}
+                style={[
+                  styles.input,
+                  isInputFocused.email && styles.inputFocused,
+                ]}
                 placeholder="Email"
                 textContentType="emailAddress"
                 value={email}
-                onFocus={() => setIsKeyboardShown(true)}
+                onFocus={() => {
+                  setIsKeyboardShown(true);
+                  handleInputFocus("email");
+                }}
+                onBlur={() => handleInputBlur("email")}
                 onChangeText={(text) => setEmail(text)}
               />
               <View style={styles.inputContainer}>
                 <TextInput
-                  style={[styles.input, { marginBottom: 0 }]}
+                  style={[
+                    styles.input,
+                    { marginBottom: 0 },
+                    isInputFocused.password && styles.inputFocused,
+                  ]}
                   placeholder="Password"
                   textContentType="password"
                   value={password}
                   secureTextEntry={passwordVisibility}
-                  onFocus={() => setIsKeyboardShown(true)}
+                  onFocus={() => {
+                    setIsKeyboardShown(true);
+                    handleInputFocus("password");
+                  }}
+                  onBlur={() => handleInputBlur("password")}
                   onChangeText={(text) => setPassword(text)}
                 />
                 <Pressable
@@ -188,6 +226,10 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     borderColor: "#E8E8E8",
     backgroundColor: "#F6F6F6",
+  },
+  inputFocused: {
+    backgroundColor: "white",
+    borderColor: "orange",
   },
   passwordVisibilityButton: {
     position: "absolute",
