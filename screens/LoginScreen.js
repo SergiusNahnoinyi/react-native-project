@@ -23,7 +23,6 @@ export default function LoginScreen() {
   const { passwordVisibility, rightIcon, handlePasswordVisibility } =
     useTogglePasswordVisibility();
   const [isInputFocused, setIsInputFocused] = useState({
-    name: false,
     email: false,
     password: false,
   });
