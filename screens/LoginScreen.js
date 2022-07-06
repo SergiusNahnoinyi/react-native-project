@@ -19,17 +19,24 @@ import { useTogglePasswordVisibility } from "../hooks/useTogglePasswordVisibilit
 export default function LoginScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [isKeyboardShown, setIsKeyboardShown] = useState(false);
   const { passwordVisibility, rightIcon, handlePasswordVisibility } =
     useTogglePasswordVisibility();
+
+  const hideKeyboard = () => {
+    setIsKeyboardShown(false);
+    Keyboard.dismiss();
+  };
 
   const handleSubmit = () => {
     console.log(email, password);
     setEmail("");
     setPassword("");
+    hideKeyboard();
   };
 
   return (
-    <TouchableWithoutFeedback>
+    <TouchableWithoutFeedback onPress={hideKeyboard}>
       <View style={styles.container}>
         <ImageBackground
           source={require("../assets/images/backgroung.jpg")}
@@ -41,7 +48,7 @@ export default function LoginScreen() {
             <View
               style={{
                 ...styles.form,
-                // paddingBottom: isKeyboardShown ? 16 : 78,
+                paddingBottom: isKeyboardShown ? 16 : 78,
               }}
             >
               <Text style={styles.formTitle}>Log in</Text>
@@ -53,10 +60,10 @@ export default function LoginScreen() {
                 placeholder="Email"
                 textContentType="emailAddress"
                 value={email}
-                // onFocus={() => {
-                //   setIsKeyboardShown(true);
-                //   handleInputFocus("email");
-                // }}
+                onFocus={() => {
+                  setIsKeyboardShown(true);
+                  //   handleInputFocus("email");
+                }}
                 // onBlur={() => handleInputBlur("email")}
                 onChangeText={(text) => setEmail(text)}
               />
@@ -71,10 +78,10 @@ export default function LoginScreen() {
                   textContentType="password"
                   value={password}
                   secureTextEntry={passwordVisibility}
-                  // onFocus={() => {
-                  //   setIsKeyboardShown(true);
-                  //   handleInputFocus("password");
-                  // }}
+                  onFocus={() => {
+                    setIsKeyboardShown(true);
+                    //   handleInputFocus("password");
+                  }}
                   // onBlur={() => handleInputBlur("password")}
                   onChangeText={(text) => setPassword(text)}
                 />
