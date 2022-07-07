@@ -153,7 +153,10 @@ export default function RegistrationScreen({ navigation }) {
                 <Text style={styles.submitButtonText}>Sign up</Text>
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() => navigation.navigate("Login")}
+                onPress={() => {
+                  navigation.navigate("Login");
+                  hideKeyboard();
+                }}
                 activeOpacity={0.8}
               >
                 <Text style={styles.loginLink}>
