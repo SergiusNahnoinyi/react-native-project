@@ -16,7 +16,7 @@ import {
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useTogglePasswordVisibility } from "../hooks/useTogglePasswordVisibility";
 
-export default function RegistrationScreen() {
+export default function RegistrationScreen({ navigation }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -85,7 +85,7 @@ export default function RegistrationScreen() {
                   />
                 </TouchableOpacity>
               </View>
-              <Text style={styles.formTitle}>Registration</Text>
+              <Text style={styles.formTitle}>Create your account</Text>
               <TextInput
                 style={[
                   styles.input,
@@ -152,7 +152,10 @@ export default function RegistrationScreen() {
               >
                 <Text style={styles.submitButtonText}>Sign up</Text>
               </TouchableOpacity>
-              <TouchableOpacity activeOpacity={0.8}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("Login")}
+                activeOpacity={0.8}
+              >
                 <Text style={styles.loginLink}>
                   Do you already have an account? Log in
                 </Text>

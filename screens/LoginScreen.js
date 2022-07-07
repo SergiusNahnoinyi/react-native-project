@@ -16,7 +16,7 @@ import {
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useTogglePasswordVisibility } from "../hooks/useTogglePasswordVisibility";
 
-export default function LoginScreen() {
+export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isKeyboardShown, setIsKeyboardShown] = useState(false);
@@ -118,7 +118,10 @@ export default function LoginScreen() {
               >
                 <Text style={styles.submitButtonText}>Log in</Text>
               </TouchableOpacity>
-              <TouchableOpacity activeOpacity={0.8}>
+              <TouchableOpacity
+                onPress={() => navigation.navigate("Registration")}
+                activeOpacity={0.8}
+              >
                 <Text style={styles.loginLink}>
                   Don't have an account? Sign up
                 </Text>
