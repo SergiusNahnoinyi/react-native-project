@@ -1,4 +1,9 @@
+import React, { useState } from "react";
 import {
+  TouchableWithoutFeedback,
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
   StyleSheet,
   View,
   TouchableOpacity,
@@ -8,39 +13,48 @@ import {
 import { Ionicons, Feather } from "@expo/vector-icons";
 
 export default function CreatePostsScreen() {
+  const [isKeyboardShown, setIsKeyboardShown] = useState(false);
+
+  const hideKeyboard = () => {
+    setIsKeyboardShown(false);
+    Keyboard.dismiss();
+  };
+
   return (
-    <View style={styles.container}>
-      <View style={styles.contentBlock}>
-        <View style={styles.photoContainer}>
-          <TouchableOpacity style={styles.addPhotoButton} activeOpacity={0.8}>
-            <Ionicons name="camera" size={24} color={"grey"} />
+    <TouchableWithoutFeedback onPress={hideKeyboard}>
+      <View style={styles.container}>
+        <View style={styles.contentBlock}>
+          <View style={styles.photoContainer}>
+            <TouchableOpacity style={styles.addPhotoButton} activeOpacity={0.8}>
+              <Ionicons name="camera" size={24} color={"grey"} />
+            </TouchableOpacity>
+          </View>
+          <Text style={styles.subtitle}>Download a photo</Text>
+        </View>
+        <View style={styles.form}>
+          <TextInput
+            style={styles.input}
+            placeholder="Image name"
+            textContentType="name"
+          />
+          <View style={styles.inputContainer}>
+            <Feather name="map-pin" size={24} style={styles.inputIcon} />
+            <TextInput
+              style={[styles.input, { marginBottom: 0, paddingLeft: 32 }]}
+              placeholder="Location"
+              textContentType="location"
+            />
+          </View>
+          <TouchableOpacity
+            style={styles.submitButton}
+            activeOpacity={0.8}
+            // onPress={handleSubmit}
+          >
+            <Text style={styles.submitButtonText}>Publish</Text>
           </TouchableOpacity>
         </View>
-        <Text style={styles.subtitle}>Download a photo</Text>
       </View>
-      <View style={styles.form}>
-        <TextInput
-          style={styles.input}
-          placeholder="Image name"
-          textContentType="name"
-        />
-        <View style={styles.inputContainer}>
-          <Feather name="map-pin" size={24} style={styles.inputIcon} />
-          <TextInput
-            style={[styles.input, { marginBottom: 0, paddingLeft: 32 }]}
-            placeholder="Location"
-            textContentType="location"
-          />
-        </View>
-        <TouchableOpacity
-          style={styles.submitButton}
-          activeOpacity={0.8}
-          // onPress={handleSubmit}
-        >
-          <Text style={styles.submitButtonText}>Publish</Text>
-        </TouchableOpacity>
-      </View>
-    </View>
+    </TouchableWithoutFeedback>
   );
 }
 
