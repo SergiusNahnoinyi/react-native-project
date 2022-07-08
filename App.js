@@ -7,6 +7,7 @@ import LoginScreen from "./screens/LoginScreen";
 import PostsScreen from "./screens/PostsScreen";
 import CreatePostsScreen from "./screens/CreatePostsScreen";
 import CommentsScreen from "./screens/CommentsScreen";
+import ProfileScreen from "./screens/ProfileScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -23,7 +24,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Comments">
+      <Stack.Navigator initialRouteName="Profile">
         <Stack.Screen
           name="Registration"
           component={RegistrationScreen}
@@ -38,7 +39,7 @@ export default function App() {
             headerShown: false,
           }}
         />
-        <Stack.Screen name="Comments" component={CommentsScreen} />
+        <Stack.Screen name="Profile" component={ProfileScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
