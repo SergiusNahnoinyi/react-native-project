@@ -68,7 +68,7 @@ export default function CommentsScreen() {
       <View style={styles.container}>
         <Image
           style={styles.image}
-          source={require("../assets/images/image.jpg")}
+          source={require("../assets/images/sunset.jpg")}
         />
         <FlatList
           style={styles.commentsList}

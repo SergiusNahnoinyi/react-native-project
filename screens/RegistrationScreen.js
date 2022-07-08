@@ -212,8 +212,6 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto-Bold",
     fontSize: 30,
     lineHeight: 35,
-    letterSpacing: 0.01,
-    color: "#212121",
   },
   inputContainer: {
     width: "100%",
