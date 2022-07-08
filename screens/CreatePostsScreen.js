@@ -13,11 +13,20 @@ import {
 import { Ionicons, Feather } from "@expo/vector-icons";
 
 export default function CreatePostsScreen() {
+  const [imageName, setImageName] = useState("");
+  const [location, setLocation] = useState("");
   const [isKeyboardShown, setIsKeyboardShown] = useState(false);
 
   const hideKeyboard = () => {
     setIsKeyboardShown(false);
     Keyboard.dismiss();
+  };
+
+  const handleSubmit = () => {
+    console.log(imageName, location);
+    setImageName("");
+    setLocation("");
+    hideKeyboard();
   };
 
   return (
@@ -36,6 +45,8 @@ export default function CreatePostsScreen() {
             style={styles.input}
             placeholder="Image name"
             textContentType="name"
+            value={imageName}
+            onChangeText={(text) => setImageName(text)}
           />
           <View style={styles.inputContainer}>
             <Feather name="map-pin" size={24} style={styles.inputIcon} />
@@ -43,12 +54,14 @@ export default function CreatePostsScreen() {
               style={[styles.input, { marginBottom: 0, paddingLeft: 32 }]}
               placeholder="Location"
               textContentType="location"
+              value={location}
+              onChangeText={(text) => setLocation(text)}
             />
           </View>
           <TouchableOpacity
             style={styles.submitButton}
             activeOpacity={0.8}
-            // onPress={handleSubmit}
+            onPress={handleSubmit}
           >
             <Text style={styles.submitButtonText}>Publish</Text>
           </TouchableOpacity>
