@@ -13,7 +13,7 @@ import { Ionicons, MaterialIcons, Feather } from "@expo/vector-icons";
 const DATA = [
   {
     id: "1",
-    photo: "../assets/images/sunset.jpg",
+    photo: "../../assets/images/sunset.jpg",
     description: "Sunset",
     location: "Kyiv",
     comments: "400",
@@ -21,7 +21,7 @@ const DATA = [
   },
   {
     id: "2",
-    photo: "../assets/images/forest.jpg",
+    photo: "../../assets/images/forest.jpg",
     description: "Forest",
     location: "Lviv",
     comments: "395",
@@ -29,7 +29,7 @@ const DATA = [
   },
   {
     id: "3",
-    photo: "../assets/images/house.jpg",
+    photo: "../../assets/images/house.jpg",
     description: "House",
     location: "Venice",
     comments: "380",
@@ -41,7 +41,7 @@ const Item = ({ post }) => (
   <View style={styles.postsItem}>
     <Image
       style={styles.image}
-      source={require("../assets/images/house.jpg")}
+      source={require("../../assets/images/house.jpg")}
     />
     <Text style={styles.postsDescription}>{post.description}</Text>
     <View style={styles.postsThumb}>
@@ -88,14 +88,14 @@ export default function ProfileScreen() {
   return (
     <View style={styles.container}>
       <ImageBackground
-        source={require("../assets/images/backgroung.jpg")}
+        source={require("../../assets/images/backgroung.jpg")}
         style={styles.imageBackground}
       >
         <View style={styles.profile}>
           <View style={styles.avatarContainer}>
             <Image
               style={styles.avatarImage}
-              source={require("../assets/images/avatar.jpg")}
+              source={require("../../assets/images/avatar.jpg")}
             />
             <TouchableOpacity style={styles.avatarButton} activeOpacity={0.8}>
               <Ionicons name="add-circle-outline" size={25} color={"#E8E8E8"} />
