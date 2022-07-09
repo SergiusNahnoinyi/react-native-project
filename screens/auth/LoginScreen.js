@@ -14,7 +14,7 @@ import {
   Pressable,
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { useTogglePasswordVisibility } from "../hooks/useTogglePasswordVisibility";
+import { useTogglePasswordVisibility } from "../../hooks/useTogglePasswordVisibility";
 
 export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
@@ -54,7 +54,7 @@ export default function LoginScreen({ navigation }) {
     <TouchableWithoutFeedback onPress={hideKeyboard}>
       <View style={styles.container}>
         <ImageBackground
-          source={require("../assets/images/backgroung.jpg")}
+          source={require("../../assets/images/backgroung.jpg")}
           style={styles.imageBackground}
         >
           <KeyboardAvoidingView

@@ -14,7 +14,7 @@ import {
   Pressable,
 } from "react-native";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
-import { useTogglePasswordVisibility } from "../hooks/useTogglePasswordVisibility";
+import { useTogglePasswordVisibility } from "../../hooks/useTogglePasswordVisibility";
 
 export default function RegistrationScreen({ navigation }) {
   const [name, setName] = useState("");
@@ -57,7 +57,7 @@ export default function RegistrationScreen({ navigation }) {
     <TouchableWithoutFeedback onPress={hideKeyboard}>
       <View style={styles.container}>
         <ImageBackground
-          source={require("../assets/images/backgroung.jpg")}
+          source={require("../../assets/images/backgroung.jpg")}
           style={styles.imageBackground}
         >
           <KeyboardAvoidingView
@@ -72,7 +72,7 @@ export default function RegistrationScreen({ navigation }) {
               <View style={styles.avatarContainer}>
                 <Image
                   style={styles.avatarImage}
-                  source={require("../assets/images/avatar.jpg")}
+                  source={require("../../assets/images/avatar.jpg")}
                 />
                 <TouchableOpacity
                   style={styles.avatarButton}
