@@ -3,6 +3,7 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useFonts } from "expo-font";
+import { Ionicons, Feather } from "@expo/vector-icons";
 
 import RegistrationScreen from "./screens/auth/RegistrationScreen";
 import LoginScreen from "./screens/auth/LoginScreen";
@@ -46,10 +47,62 @@ export default function App() {
           />
         </AuthStack.Navigator>
       ) : (
-        <BottomTab.Navigator>
-          <BottomTab.Screen name="Main" component={MainScreen} />
-          <BottomTab.Screen name="Create posts" component={CreatePostsScreen} />
-          <BottomTab.Screen name="Profile" component={ProfileScreen} />
+        <BottomTab.Navigator
+          initialRouteName={MainScreen}
+          screenOptions={{
+            headerShown: false,
+            headerTitleAlign: "center",
+            headerTitleStyle: {
+              fontFamily: "Roboto-Medium",
+              fontSize: 17,
+              lineHeight: 22,
+            },
+            tabBarStyle: {
+              height: 83,
+              alignItems: "center",
+              paddingTop: 9,
+              paddingBottom: 34,
+            },
+            tabBarItemStyle: {
+              maxHeight: 40,
+              maxWidth: 70,
+              borderRadius: 20,
+            },
+            tabBarShowLabel: false,
+            tabBarActiveTintColor: "white",
+            tabBarActiveBackgroundColor: "#FF6C00",
+          }}
+        >
+          <BottomTab.Screen
+            name="Main"
+            component={MainScreen}
+            options={{
+              headerShown: true,
+              tabBarIcon: ({ focused, size, color }) => (
+                <Ionicons name="grid-outline" size={24} color={color} />
+              ),
+            }}
+          />
+          <BottomTab.Screen
+            name="Create posts"
+            component={CreatePostsScreen}
+            options={{
+              headerShown: true,
+              tabBarIcon: ({ focused, size, color }) => (
+                <Ionicons name="add-outline" size={24} color={color} />
+              ),
+            }}
+          />
+          <BottomTab.Screen
+            name="Profile"
+            component={ProfileScreen}
+            options={{
+              headerShown: false,
+              tabBarIcon: ({ focused, size, color }) => (
+                <Feather name="user" size={24} color={color} />
+              ),
+            }}
+          />
         </BottomTab.Navigator>
       )}
     </NavigationContainer>
