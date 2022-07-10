@@ -184,7 +184,6 @@ const styles = StyleSheet.create({
   },
   postsThumb: {
     flexDirection: "row",
-    // justifyContent: "space-between",
   },
   button: {
     flexDirection: "row",
