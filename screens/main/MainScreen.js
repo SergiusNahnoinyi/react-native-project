@@ -1,4 +1,6 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { TouchableOpacity } from "react-native";
+import { MaterialIcons } from "@expo/vector-icons";
 
 import { PostsScreen, CommentsScreen } from "../nested";
 
@@ -18,7 +20,21 @@ export function MainScreen() {
         },
       }}
     >
-      <NestedStack.Screen name="Posts" component={PostsScreen} />
+      <NestedStack.Screen
+        name="Posts"
+        component={PostsScreen}
+        options={{
+          headerRight: () => (
+            <TouchableOpacity
+              style={{ width: 24 }}
+              activeOpacity={0.8}
+              // onPress={}
+            >
+              <MaterialIcons name="logout" size={24} color={"#BDBDBD"} />
+            </TouchableOpacity>
+          ),
+        }}
+      />
       <NestedStack.Screen name="Comments" component={CommentsScreen} />
     </NestedStack.Navigator>
   );
