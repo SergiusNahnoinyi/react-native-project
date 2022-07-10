@@ -6,7 +6,7 @@ export function PostsScreen() {
       <View style={styles.userContainer}>
         <Image
           style={styles.avatarImage}
-          source={require("../assets/images/avatar.jpg")}
+          source={require("../../assets/images/avatar.jpg")}
         />
         <View style={styles.user}>
           <Text style={styles.userName}>Natali Romanova</Text>

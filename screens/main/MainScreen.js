@@ -1,24 +1,25 @@
-import React, { useState } from "react";
-import { StyleSheet, View, Text } from "react-native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
+import { PostsScreen, CommentsScreen } from "../nested";
+
+const NestedStack = createNativeStackNavigator();
 
 export function MainScreen() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.text}>MainScreen</Text>
-    </View>
+    <NestedStack.Navigator
+      initialRouteName={PostsScreen}
+      screenOptions={{
+        headerShown: true,
+        headerTitleAlign: "center",
+        headerTitleStyle: {
+          fontFamily: "Roboto-Medium",
+          fontSize: 17,
+          lineHeight: 22,
+        },
+      }}
+    >
+      <NestedStack.Screen name="Posts" component={PostsScreen} />
+      <NestedStack.Screen name="Comments" component={CommentsScreen} />
+    </NestedStack.Navigator>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingVertical: 32,
-    paddingHorizontal: 16,
-    backgroundColor: "white",
-  },
-  text: {
-    fontFamily: "Roboto-Medium",
-    fontSize: 16,
-    lineHeight: 19,
-  },
-});

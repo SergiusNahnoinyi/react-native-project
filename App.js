@@ -74,7 +74,7 @@ export default function App() {
             name="Main"
             component={MainScreen}
             options={{
-              headerShown: true,
+              headerShown: false,
               tabBarIcon: ({ focused, size, color }) => (
                 <Ionicons name="grid-outline" size={24} color={color} />
               ),

@@ -36,7 +36,7 @@ const Item = ({ comment }) => (
   <View style={styles.commentsItem}>
     <Image
       style={styles.userAvatar}
-      source={require("../assets/images/avatar.jpg")}
+      source={require("../../assets/images/avatar.jpg")}
     />
     <View style={styles.commentsThumb}>
       <Text style={styles.commentsText}>{comment.text}</Text>
@@ -68,7 +68,7 @@ export function CommentsScreen() {
       <View style={styles.container}>
         <Image
           style={styles.image}
-          source={require("../assets/images/sunset.jpg")}
+          source={require("../../assets/images/sunset.jpg")}
         />
         <FlatList
           style={styles.commentsList}
