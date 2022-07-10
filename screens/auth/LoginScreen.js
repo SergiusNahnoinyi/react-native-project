@@ -16,7 +16,7 @@ import {
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useTogglePasswordVisibility } from "../../hooks/useTogglePasswordVisibility";
 
-export default function LoginScreen({ navigation }) {
+export function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isKeyboardShown, setIsKeyboardShown] = useState(false);

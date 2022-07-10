@@ -45,7 +45,7 @@ const Item = ({ comment }) => (
   </View>
 );
 
-export default function CommentsScreen() {
+export function CommentsScreen() {
   const [comment, setComment] = useState("");
   const [isInputFocused, setIsInputFocused] = useState(false);
   const [isKeyboardShown, setIsKeyboardShown] = useState(false);

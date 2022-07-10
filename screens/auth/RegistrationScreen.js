@@ -16,7 +16,7 @@ import {
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useTogglePasswordVisibility } from "../../hooks/useTogglePasswordVisibility";
 
-export default function RegistrationScreen({ navigation }) {
+export function RegistrationScreen({ navigation }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

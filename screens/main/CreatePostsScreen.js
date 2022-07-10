@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import { Ionicons, Feather } from "@expo/vector-icons";
 
-export default function CreatePostsScreen() {
+export function CreatePostsScreen() {
   const [imageName, setImageName] = useState("");
   const [location, setLocation] = useState("");
   const [isKeyboardShown, setIsKeyboardShown] = useState(false);

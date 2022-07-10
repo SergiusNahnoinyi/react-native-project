@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { StyleSheet, View, Text } from "react-native";
 
-export default function MainScreen() {
+export function MainScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.text}>MainScreen</Text>

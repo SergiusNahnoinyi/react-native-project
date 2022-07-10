@@ -82,7 +82,7 @@ const Item = ({ post }) => (
   </View>
 );
 
-export default function ProfileScreen() {
+export function ProfileScreen() {
   const renderItem = ({ item }) => <Item post={item} />;
 
   return (

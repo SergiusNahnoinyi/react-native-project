@@ -5,11 +5,8 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { useFonts } from "expo-font";
 import { Ionicons, Feather } from "@expo/vector-icons";
 
-import RegistrationScreen from "./screens/auth/RegistrationScreen";
-import LoginScreen from "./screens/auth/LoginScreen";
-import MainScreen from "./screens/main/MainScreen";
-import CreatePostsScreen from "./screens/main/CreatePostsScreen";
-import ProfileScreen from "./screens/main/ProfileScreen";
+import { RegistrationScreen, LoginScreen } from "./screens/auth";
+import { MainScreen, CreatePostsScreen, ProfileScreen } from "./screens/main";
 
 const AuthStack = createNativeStackNavigator();
 const BottomTab = createBottomTabNavigator();
