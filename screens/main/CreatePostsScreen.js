@@ -10,6 +10,8 @@ import {
   Text,
   TextInput,
 } from "react-native";
+import { Camera } from "expo-camera";
+import * as MediaLibrary from "expo-media-library";
 import { Ionicons, Feather } from "@expo/vector-icons";
 
 export function CreatePostsScreen() {
@@ -32,12 +34,12 @@ export function CreatePostsScreen() {
   return (
     <TouchableWithoutFeedback onPress={hideKeyboard}>
       <View style={styles.container}>
-        <View style={styles.contentBlock}>
-          <View style={styles.photoContainer}>
-            <TouchableOpacity style={styles.addPhotoButton} activeOpacity={0.8}>
+        <View style={styles.cameraContainer}>
+          <Camera style={styles.camera}>
+            <TouchableOpacity style={styles.snapButton} activeOpacity={0.8}>
               <Ionicons name="camera" size={24} color={"grey"} />
             </TouchableOpacity>
-          </View>
+          </Camera>
           <Text style={styles.subtitle}>Download a photo</Text>
         </View>
         <View style={styles.form}>
@@ -78,10 +80,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     backgroundColor: "white",
   },
-  contentBlock: {
+  cameraContainer: {
     marginBottom: 32,
   },
-  photoContainer: {
+  camera: {
     height: 240,
     marginBottom: 8,
     justifyContent: "center",
@@ -89,7 +91,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     backgroundColor: "#E8E8E8",
   },
-  addPhotoButton: {
+  snapButton: {
     width: 60,
     height: 60,
     justifyContent: "center",
