@@ -33,6 +33,13 @@ export function CreatePostsScreen() {
     Keyboard.dismiss();
   };
 
+  const takePhoto = async () => {
+    if (cameraRef) {
+      const { uri } = await cameraRef.takePictureAsync();
+      await MediaLibrary.createAssetAsync(uri);
+    }
+  };
+
   const handleSubmit = () => {
     console.log(imageName, location);
     setImageName("");
@@ -45,21 +52,11 @@ export function CreatePostsScreen() {
       <View style={styles.container}>
         {hasPermission ? (
           <View style={styles.cameraContainer}>
-            <Camera
-              style={styles.camera}
-              ref={(ref) => {
-                setCameraRef(ref);
-              }}
-            >
+            <Camera style={styles.camera} ref={setCameraRef}>
               <TouchableOpacity
                 style={styles.snapButton}
                 activeOpacity={0.8}
-                onPress={async () => {
-                  if (cameraRef) {
-                    const { uri } = await cameraRef.takePictureAsync();
-                    await MediaLibrary.createAssetAsync(uri);
-                  }
-                }}
+                onPress={takePhoto}
               >
                 <Ionicons name="camera" size={24} color={"grey"} />
               </TouchableOpacity>
