@@ -18,7 +18,8 @@ export function CreatePostsScreen() {
   const [imageName, setImageName] = useState("");
   const [location, setLocation] = useState("");
   const [isKeyboardShown, setIsKeyboardShown] = useState(false);
-  const [hasPermission, setHasPermission] = useState(true);
+  const [hasPermission, setHasPermission] = useState(null);
+  const [cameraRef, setCameraRef] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -44,8 +45,22 @@ export function CreatePostsScreen() {
       <View style={styles.container}>
         {hasPermission ? (
           <View style={styles.cameraContainer}>
-            <Camera style={styles.camera}>
-              <TouchableOpacity style={styles.snapButton} activeOpacity={0.8}>
+            <Camera
+              style={styles.camera}
+              ref={(ref) => {
+                setCameraRef(ref);
+              }}
+            >
+              <TouchableOpacity
+                style={styles.snapButton}
+                activeOpacity={0.8}
+                onPress={async () => {
+                  if (cameraRef) {
+                    const { uri } = await cameraRef.takePictureAsync();
+                    await MediaLibrary.createAssetAsync(uri);
+                  }
+                }}
+              >
                 <Ionicons name="camera" size={24} color={"grey"} />
               </TouchableOpacity>
             </Camera>
