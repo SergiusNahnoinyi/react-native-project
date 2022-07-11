@@ -6,6 +6,7 @@ import {
   Platform,
   StyleSheet,
   View,
+  Image,
   TouchableOpacity,
   Text,
   TextInput,
@@ -15,6 +16,7 @@ import * as MediaLibrary from "expo-media-library";
 import { Ionicons, Feather } from "@expo/vector-icons";
 
 export function CreatePostsScreen() {
+  const [image, setImage] = useState(null);
   const [imageName, setImageName] = useState("");
   const [location, setLocation] = useState("");
   const [isKeyboardShown, setIsKeyboardShown] = useState(false);
@@ -37,11 +39,13 @@ export function CreatePostsScreen() {
     if (cameraRef) {
       const { uri } = await cameraRef.takePictureAsync();
       await MediaLibrary.createAssetAsync(uri);
+      setImage(uri);
     }
   };
 
   const handleSubmit = () => {
     console.log(imageName, location);
+    setImage("");
     setImageName("");
     setLocation("");
     hideKeyboard();
@@ -61,6 +65,9 @@ export function CreatePostsScreen() {
                 <Ionicons name="camera" size={24} color={"grey"} />
               </TouchableOpacity>
             </Camera>
+            {image && (
+              <Image source={{ uri: image }} style={styles.photoPreview} />
+            )}
             <Text style={styles.subtitle}>Download a photo</Text>
           </View>
         ) : (
@@ -116,6 +123,10 @@ const styles = StyleSheet.create({
     alignItems: "center",
     borderRadius: 8,
     backgroundColor: "#E8E8E8",
+  },
+  photoPreview: {
+    width: 50,
+    height: 50,
   },
   snapButton: {
     width: 60,
