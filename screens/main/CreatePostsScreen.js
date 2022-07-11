@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   TouchableWithoutFeedback,
   Keyboard,
@@ -18,6 +18,14 @@ export function CreatePostsScreen() {
   const [imageName, setImageName] = useState("");
   const [location, setLocation] = useState("");
   const [isKeyboardShown, setIsKeyboardShown] = useState(false);
+  const [hasPermission, setHasPermission] = useState(true);
+
+  useEffect(() => {
+    (async () => {
+      const { status } = await Camera.requestCameraPermissionsAsync();
+      setHasPermission(status === "granted");
+    })();
+  }, []);
 
   const hideKeyboard = () => {
     setIsKeyboardShown(false);
@@ -34,14 +42,20 @@ export function CreatePostsScreen() {
   return (
     <TouchableWithoutFeedback onPress={hideKeyboard}>
       <View style={styles.container}>
-        <View style={styles.cameraContainer}>
-          <Camera style={styles.camera}>
-            <TouchableOpacity style={styles.snapButton} activeOpacity={0.8}>
-              <Ionicons name="camera" size={24} color={"grey"} />
-            </TouchableOpacity>
-          </Camera>
-          <Text style={styles.subtitle}>Download a photo</Text>
-        </View>
+        {hasPermission ? (
+          <View style={styles.cameraContainer}>
+            <Camera style={styles.camera}>
+              <TouchableOpacity style={styles.snapButton} activeOpacity={0.8}>
+                <Ionicons name="camera" size={24} color={"grey"} />
+              </TouchableOpacity>
+            </Camera>
+            <Text style={styles.subtitle}>Download a photo</Text>
+          </View>
+        ) : (
+          <View style={styles.cameraContainer}>
+            <Text>No access to the camera</Text>
+          </View>
+        )}
         <View style={styles.form}>
           <TextInput
             style={styles.input}
