@@ -15,7 +15,7 @@ import { Camera } from "expo-camera";
 import * as MediaLibrary from "expo-media-library";
 import { Ionicons, Feather } from "@expo/vector-icons";
 
-export function CreatePostsScreen() {
+export function CreatePostsScreen({ navigation }) {
   const [photo, setPhoto] = useState(null);
   const [photoName, setPhotoName] = useState("");
   const [location, setLocation] = useState("");
@@ -51,11 +51,12 @@ export function CreatePostsScreen() {
   };
 
   const handleSubmit = () => {
-    console.log(photoName, location);
+    console.log(photo, photoName, location);
     setPhoto(null);
     setPhotoName("");
     setLocation("");
     hideKeyboard();
+    navigation.navigate("Posts", { photo, photoName, location });
   };
 
   return (
