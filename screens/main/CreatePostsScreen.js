@@ -30,6 +30,13 @@ export function CreatePostsScreen() {
     })();
   }, []);
 
+  if (hasPermission === null) {
+    return <View />;
+  }
+  if (hasPermission === false) {
+    return <Text>No access to the camera</Text>;
+  }
+
   const hideKeyboard = () => {
     setIsKeyboardShown(false);
     Keyboard.dismiss();
