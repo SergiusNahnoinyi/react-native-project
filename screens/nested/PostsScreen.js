@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   View,
@@ -80,7 +81,15 @@ const Item = ({ post }) => (
   </View>
 );
 
-export function PostsScreen() {
+export function PostsScreen({ route }) {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    if (route.params) {
+      setPosts((prevState) => [...prevState, route.params]);
+    }
+  }, [route.params]);
+
   const renderItem = ({ item }) => <Item post={item} />;
 
   return (
