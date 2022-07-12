@@ -16,8 +16,8 @@ import * as MediaLibrary from "expo-media-library";
 import { Ionicons, Feather } from "@expo/vector-icons";
 
 export function CreatePostsScreen() {
-  const [image, setImage] = useState(null);
-  const [imageName, setImageName] = useState("");
+  const [photo, setPhoto] = useState(null);
+  const [photoName, setPhotoName] = useState("");
   const [location, setLocation] = useState("");
   const [isKeyboardShown, setIsKeyboardShown] = useState(false);
   const [hasPermission, setHasPermission] = useState(null);
@@ -39,14 +39,14 @@ export function CreatePostsScreen() {
     if (cameraRef) {
       const { uri } = await cameraRef.takePictureAsync();
       await MediaLibrary.createAssetAsync(uri);
-      setImage(uri);
+      setPhoto(uri);
     }
   };
 
   const handleSubmit = () => {
-    console.log(imageName, location);
-    setImage("");
-    setImageName("");
+    console.log(photoName, location);
+    setPhoto("");
+    setPhotoName("");
     setLocation("");
     hideKeyboard();
   };
@@ -65,8 +65,8 @@ export function CreatePostsScreen() {
                 <Ionicons name="camera" size={24} color={"grey"} />
               </TouchableOpacity>
             </Camera>
-            {image && (
-              <Image source={{ uri: image }} style={styles.photoPreview} />
+            {photo && (
+              <Image source={{ uri: photo }} style={styles.photoPreview} />
             )}
             <Text style={styles.subtitle}>Download a photo</Text>
           </View>
@@ -78,10 +78,10 @@ export function CreatePostsScreen() {
         <View style={styles.form}>
           <TextInput
             style={styles.input}
-            placeholder="Image name"
+            placeholder="Photo name"
             textContentType="name"
-            value={imageName}
-            onChangeText={(text) => setImageName(text)}
+            value={photoName}
+            onChangeText={(text) => setPhotoName(text)}
           />
           <View style={styles.inputContainer}>
             <Feather name="map-pin" size={24} style={styles.inputIcon} />
