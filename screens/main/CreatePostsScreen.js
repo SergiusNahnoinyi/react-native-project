@@ -114,9 +114,13 @@ export function CreatePostsScreen() {
             />
           </View>
           <TouchableOpacity
-            style={styles.submitButton}
+            style={{
+              ...styles.submitButton,
+              backgroundColor: photo ? "#FF6C00" : "#F6F6F6",
+            }}
             activeOpacity={0.8}
             onPress={handleSubmit}
+            disabled={photo ? false : true}
           >
             <Text style={styles.submitButtonText}>Publish</Text>
           </TouchableOpacity>
