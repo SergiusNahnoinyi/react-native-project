@@ -45,7 +45,7 @@ export function CreatePostsScreen() {
 
   const handleSubmit = () => {
     console.log(photoName, location);
-    setPhoto("");
+    setPhoto(null);
     setPhotoName("");
     setLocation("");
     hideKeyboard();
