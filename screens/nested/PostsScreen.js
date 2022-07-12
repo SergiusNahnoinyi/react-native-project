@@ -9,40 +9,37 @@ import {
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
 
-const DATA = [
-  {
-    id: "1",
-    photo: "../../assets/images/sunset.jpg",
-    description: "Sunset",
-    location: "Kyiv",
-    comments: "400",
-    likes: "1400",
-  },
-  {
-    id: "2",
-    photo: "../../assets/images/forest.jpg",
-    description: "Forest",
-    location: "Lviv",
-    comments: "395",
-    likes: "1395",
-  },
-  {
-    id: "3",
-    photo: "../../assets/images/house.jpg",
-    description: "House",
-    location: "Venice",
-    comments: "380",
-    likes: "1380",
-  },
-];
+// const DATA = [
+//   {
+//     id: "1",
+//     photo: "../../assets/images/sunset.jpg",
+//     description: "Sunset",
+//     location: "Kyiv",
+//     comments: "400",
+//     likes: "1400",
+//   },
+//   {
+//     id: "2",
+//     photo: "../../assets/images/forest.jpg",
+//     description: "Forest",
+//     location: "Lviv",
+//     comments: "395",
+//     likes: "1395",
+//   },
+//   {
+//     id: "3",
+//     photo: "../../assets/images/house.jpg",
+//     description: "House",
+//     location: "Venice",
+//     comments: "380",
+//     likes: "1380",
+//   },
+// ];
 
 const Item = ({ post }) => (
   <View style={styles.postsItem}>
-    <Image
-      style={styles.image}
-      source={require("../../assets/images/house.jpg")}
-    />
-    <Text style={styles.postsDescription}>{post.description}</Text>
+    <Image style={styles.image} source={{ uri: post.photo }} />
+    <Text style={styles.postsDescription}>{post.photoName}</Text>
     <View style={styles.postsThumb}>
       <TouchableOpacity
         style={[styles.button, { marginRight: 24 }]}
@@ -53,7 +50,7 @@ const Item = ({ post }) => (
           size={24}
           style={{ marginRight: 6, color: "#FF6C00" }}
         />
-        <Text style={styles.text}>{post.comments}</Text>
+        <Text style={styles.text}>0</Text>
       </TouchableOpacity>
       <TouchableOpacity
         style={[styles.button, { marginRight: "auto" }]}
@@ -64,7 +61,7 @@ const Item = ({ post }) => (
           size={24}
           style={{ marginRight: 6, color: "#FF6C00" }}
         />
-        <Text style={styles.text}>{post.likes}</Text>
+        <Text style={styles.text}>0</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.button} activeOpacity={0.8}>
         <Feather
@@ -106,9 +103,9 @@ export function PostsScreen({ route }) {
       </View>
       <FlatList
         style={styles.profileList}
-        data={DATA}
+        data={posts}
         renderItem={renderItem}
-        keyExtractor={(post) => post.id}
+        keyExtractor={(post, index) => index.toString()}
       />
     </View>
   );
@@ -153,6 +150,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: "100%",
+    height: 240,
     marginBottom: 8,
     borderRadius: 8,
   },
