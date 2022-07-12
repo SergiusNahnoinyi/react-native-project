@@ -6,7 +6,7 @@ import {
   Platform,
   StyleSheet,
   View,
-  Image,
+  ImageBackground,
   TouchableOpacity,
   Text,
   TextInput,
@@ -54,7 +54,7 @@ export function CreatePostsScreen() {
   return (
     <TouchableWithoutFeedback onPress={hideKeyboard}>
       <View style={styles.container}>
-        {hasPermission ? (
+        {!photo ? (
           <View style={styles.cameraContainer}>
             <Camera style={styles.camera} ref={setCameraRef}>
               <TouchableOpacity
@@ -65,14 +65,27 @@ export function CreatePostsScreen() {
                 <Ionicons name="camera" size={24} color={"grey"} />
               </TouchableOpacity>
             </Camera>
-            {photo && (
-              <Image source={{ uri: photo }} style={styles.photoPreview} />
-            )}
-            <Text style={styles.subtitle}>Download a photo</Text>
+            <Text style={styles.subtitle} onPress={takePhoto}>
+              Download a photo
+            </Text>
           </View>
         ) : (
-          <View style={styles.cameraContainer}>
-            <Text>No access to the camera</Text>
+          <View style={styles.previewContainer}>
+            <ImageBackground
+              source={{ uri: photo }}
+              style={styles.previewPhoto}
+            >
+              <TouchableOpacity
+                style={styles.editButton}
+                activeOpacity={0.8}
+                onPress={() => setPhoto(null)}
+              >
+                <Ionicons name="camera" size={24} color={"white"} />
+              </TouchableOpacity>
+            </ImageBackground>
+            <Text style={styles.subtitle} onPress={() => setPhoto(null)}>
+              Edit your photo
+            </Text>
           </View>
         )}
         <View style={styles.form}>
@@ -121,12 +134,6 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     justifyContent: "center",
     alignItems: "center",
-    borderRadius: 8,
-    backgroundColor: "#E8E8E8",
-  },
-  photoPreview: {
-    width: 50,
-    height: 50,
   },
   snapButton: {
     width: 60,
@@ -141,6 +148,23 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 19,
     color: "#BDBDBD",
+  },
+  previewContainer: {
+    marginBottom: 32,
+  },
+  previewPhoto: {
+    height: 240,
+    marginBottom: 8,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  editButton: {
+    width: 60,
+    height: 60,
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 50,
+    backgroundColor: "#FFFFFF4D",
   },
   inputContainer: {
     width: "100%",
