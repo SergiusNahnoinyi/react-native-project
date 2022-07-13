@@ -13,6 +13,7 @@ import {
 } from "react-native";
 import { Camera } from "expo-camera";
 import * as MediaLibrary from "expo-media-library";
+import * as Location from "expo-location";
 import { Ionicons, Feather } from "@expo/vector-icons";
 
 export function CreatePostsScreen({ navigation }) {
@@ -20,21 +21,26 @@ export function CreatePostsScreen({ navigation }) {
   const [photoName, setPhotoName] = useState("");
   const [location, setLocation] = useState("");
   const [isKeyboardShown, setIsKeyboardShown] = useState(false);
-  const [hasPermission, setHasPermission] = useState(null);
+  const [hasCameraPermission, setHasCameraPermission] = useState(null);
+  const [hasLocationPermission, setHasLocationPermission] = useState(null);
   const [cameraRef, setCameraRef] = useState(null);
 
   useEffect(() => {
     (async () => {
-      const { status } = await Camera.requestCameraPermissionsAsync();
-      setHasPermission(status === "granted");
+      let cameraPermission = await Camera.requestCameraPermissionsAsync();
+      setHasCameraPermission(cameraPermission.status === "granted");
+
+      let locationPermission =
+        await Location.requestForegroundPermissionsAsync();
+      setHasLocationPermission(locationPermission.status === "granted");
     })();
   }, []);
 
-  if (hasPermission === null) {
+  if (hasCameraPermission && hasLocationPermission === null) {
     return <View />;
   }
-  if (hasPermission === false) {
-    return <Text>No access to the camera</Text>;
+  if (hasCameraPermission && hasLocationPermission === false) {
+    return <Text>No access to the camera and location</Text>;
   }
 
   const hideKeyboard = () => {
