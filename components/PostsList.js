@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import {
   StyleSheet,
   View,
@@ -9,6 +10,8 @@ import {
 import { Feather } from "@expo/vector-icons";
 
 export function PostsList({ navigation, posts }) {
+  const [likes, setLikes] = useState(0);
+
   return (
     <FlatList
       style={styles.postsList}
@@ -36,13 +39,14 @@ export function PostsList({ navigation, posts }) {
             <TouchableOpacity
               style={[styles.button, { marginRight: "auto" }]}
               activeOpacity={0.8}
+              onPress={() => setLikes(likes + 1)}
             >
               <Feather
                 name="thumbs-up"
                 size={24}
                 style={{ marginRight: 6, color: "#FF6C00" }}
               />
-              <Text style={styles.text}>0</Text>
+              <Text style={styles.text}>{likes}</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.button} activeOpacity={0.8}>
               <Feather
