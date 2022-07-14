@@ -11,6 +11,7 @@ const NestedStack = createNativeStackNavigator();
 export function MainScreen({ navigation, route }) {
   useLayoutEffect(() => {
     const routeName = getFocusedRouteNameFromRoute(route);
+
     if (routeName === "Comments") {
       navigation.setOptions({ tabBarStyle: { display: "none" } });
     } else {

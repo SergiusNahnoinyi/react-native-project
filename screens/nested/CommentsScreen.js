@@ -45,7 +45,7 @@ const Item = ({ comment }) => (
   </View>
 );
 
-export function CommentsScreen() {
+export function CommentsScreen({ route }) {
   const [comment, setComment] = useState("");
   const [isInputFocused, setIsInputFocused] = useState(false);
   const [isKeyboardShown, setIsKeyboardShown] = useState(false);
@@ -66,10 +66,7 @@ export function CommentsScreen() {
   return (
     <TouchableWithoutFeedback onPress={hideKeyboard}>
       <View style={styles.container}>
-        <Image
-          style={styles.image}
-          source={require("../../assets/images/sunset.jpg")}
-        />
+        <Image style={styles.image} source={{ uri: route.params.photo }} />
         <FlatList
           style={styles.commentsList}
           data={DATA}
@@ -109,6 +106,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: "100%",
+    height: 240,
     marginBottom: 32,
     borderRadius: 8,
   },
