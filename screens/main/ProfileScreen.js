@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import {
   StyleSheet,
   View,
@@ -6,85 +5,42 @@ import {
   Image,
   TouchableOpacity,
   Text,
-  FlatList,
 } from "react-native";
-import { Ionicons, MaterialIcons, Feather } from "@expo/vector-icons";
+import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 
-const DATA = [
+import { PostsList } from "../../components/PostsList";
+
+const posts = [
   {
     id: "1",
-    photo: "../../assets/images/sunset.jpg",
-    description: "Sunset",
+    photo:
+      "https://raw.githubusercontent.com/SergiusNahnoinyi/react-native-project/main/assets/images/sunset.jpg",
+    photoName: "Sunset",
     location: "Kyiv",
     comments: "400",
     likes: "1400",
   },
   {
     id: "2",
-    photo: "../../assets/images/forest.jpg",
-    description: "Forest",
+    photo:
+      "https://raw.githubusercontent.com/SergiusNahnoinyi/react-native-project/main/assets/images/forest.jpg",
+    photoName: "Forest",
     location: "Lviv",
     comments: "395",
     likes: "1395",
   },
   {
     id: "3",
-    photo: "../../assets/images/house.jpg",
-    description: "House",
+    photo:
+      "https://raw.githubusercontent.com/SergiusNahnoinyi/react-native-project/main/assets/images/house.jpg",
+    photoName: "House",
     location: "Venice",
     comments: "380",
     likes: "1380",
   },
 ];
 
-const Item = ({ post }) => (
-  <View style={styles.postsItem}>
-    <Image
-      style={styles.image}
-      source={require("../../assets/images/house.jpg")}
-    />
-    <Text style={styles.postsDescription}>{post.description}</Text>
-    <View style={styles.postsThumb}>
-      <TouchableOpacity
-        style={[styles.button, { marginRight: 24 }]}
-        activeOpacity={0.8}
-      >
-        <Feather
-          name="message-circle"
-          size={24}
-          style={{ marginRight: 6, color: "#FF6C00" }}
-        />
-        <Text style={styles.text}>{post.comments}</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        style={[styles.button, { marginRight: "auto" }]}
-        activeOpacity={0.8}
-      >
-        <Feather
-          name="thumbs-up"
-          size={24}
-          style={{ marginRight: 6, color: "#FF6C00" }}
-        />
-        <Text style={styles.text}>{post.likes}</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button} activeOpacity={0.8}>
-        <Feather
-          name="map-pin"
-          size={24}
-          color={"#BDBDBD"}
-          style={{ marginRight: 6 }}
-        />
-        <Text style={[styles.text, { textDecorationLine: "underline" }]}>
-          {post.location}
-        </Text>
-      </TouchableOpacity>
-    </View>
-  </View>
-);
-
-export function ProfileScreen() {
-  const renderItem = ({ item }) => <Item post={item} />;
-
+export function ProfileScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -105,12 +61,7 @@ export function ProfileScreen() {
             <MaterialIcons name="logout" size={24} color={"#BDBDBD"} />
           </TouchableOpacity>
           <Text style={styles.profileTitle}>Natalia Romanova</Text>
-          <FlatList
-            style={styles.profileList}
-            data={DATA}
-            renderItem={renderItem}
-            keyExtractor={(post) => post.id}
-          />
+          <PostsList posts={posts} navigation={navigation} />
         </View>
       </ImageBackground>
     </View>
@@ -127,8 +78,8 @@ const styles = StyleSheet.create({
     resizeMode: "cover",
   },
   profile: {
+    flex: 1,
     paddingTop: 92,
-    paddingBottom: 32,
     paddingHorizontal: 16,
     alignItems: "center",
     borderTopLeftRadius: 25,
@@ -163,34 +114,5 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto-Bold",
     fontSize: 30,
     lineHeight: 35,
-  },
-  profileList: {
-    width: "100%",
-    marginBottom: 32,
-  },
-  postsItem: {
-    marginBottom: 32,
-  },
-  image: {
-    width: "100%",
-    marginBottom: 8,
-    borderRadius: 8,
-  },
-  postsDescription: {
-    marginBottom: 8,
-    fontFamily: "Roboto-Medium",
-    fontSize: 16,
-    lineHeight: 19,
-  },
-  postsThumb: {
-    flexDirection: "row",
-  },
-  button: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  text: {
-    fontSize: 16,
-    lineHeight: 19,
   },
 });

@@ -69,7 +69,6 @@ export function PostsList({ navigation, posts }) {
 const styles = StyleSheet.create({
   postsList: {
     width: "100%",
-    // marginBottom: 32,
   },
   postsItem: {
     marginBottom: 32,
