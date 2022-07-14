@@ -65,7 +65,7 @@ export function CreatePostsScreen({ navigation }) {
     setLocation("");
     setGeoposition("");
     hideKeyboard();
-    navigation.navigate("Posts", { photo, photoName, location });
+    navigation.navigate("Posts", { photo, photoName, location, geoposition });
     console.log(photo, photoName, location, geoposition);
   };
 
