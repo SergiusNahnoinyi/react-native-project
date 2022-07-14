@@ -20,6 +20,7 @@ export function CreatePostsScreen({ navigation }) {
   const [photo, setPhoto] = useState(null);
   const [photoName, setPhotoName] = useState("");
   const [location, setLocation] = useState("");
+  const [geoposition, setGeoposition] = useState("");
   const [isKeyboardShown, setIsKeyboardShown] = useState(false);
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
   const [hasLocationPermission, setHasLocationPermission] = useState(null);
@@ -53,16 +54,19 @@ export function CreatePostsScreen({ navigation }) {
       const { uri } = await cameraRef.takePictureAsync();
       await MediaLibrary.createAssetAsync(uri);
       setPhoto(uri);
+      const { coords } = await Location.getCurrentPositionAsync();
+      setGeoposition(coords);
     }
   };
 
   const handleSubmit = () => {
-    console.log(photo, photoName, location);
     setPhoto(null);
     setPhotoName("");
     setLocation("");
+    setGeoposition("");
     hideKeyboard();
     navigation.navigate("Posts", { photo, photoName, location });
+    console.log(photo, photoName, location, geoposition);
   };
 
   return (
