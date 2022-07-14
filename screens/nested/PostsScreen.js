@@ -36,7 +36,7 @@ import { Feather } from "@expo/vector-icons";
 //   },
 // ];
 
-const Item = ({ post }) => (
+const Item = ({ post, navigation }) => (
   <View style={styles.postsItem}>
     <Image style={styles.image} source={{ uri: post.photo }} />
     <Text style={styles.postsDescription}>{post.photoName}</Text>
@@ -44,6 +44,7 @@ const Item = ({ post }) => (
       <TouchableOpacity
         style={[styles.button, { marginRight: 24 }]}
         activeOpacity={0.8}
+        onPress={() => navigation.navigate("Comments")}
       >
         <Feather
           name="message-circle"
@@ -78,7 +79,7 @@ const Item = ({ post }) => (
   </View>
 );
 
-export function PostsScreen({ route }) {
+export function PostsScreen({ route, navigation }) {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
@@ -87,7 +88,7 @@ export function PostsScreen({ route }) {
     }
   }, [route.params]);
 
-  const renderItem = ({ item }) => <Item post={item} />;
+  const renderItem = ({ item }) => <Item post={item} navigation={navigation} />;
 
   return (
     <View style={styles.container}>
