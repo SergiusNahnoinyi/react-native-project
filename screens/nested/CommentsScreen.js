@@ -32,21 +32,22 @@ const DATA = [
   },
 ];
 
-const Item = ({ comment }) => (
+const Item = ({ comments }) => (
   <View style={styles.commentsItem}>
     <Image
       style={styles.userAvatar}
       source={require("../../assets/images/avatar.jpg")}
     />
     <View style={styles.commentsThumb}>
-      <Text style={styles.commentsText}>{comment.text}</Text>
-      <Text style={styles.commentsDate}>{comment.date}</Text>
+      <Text style={styles.commentsText}>{comments}</Text>
+      <Text style={styles.commentsDate}>{new Date().toLocaleString()}</Text>
     </View>
   </View>
 );
 
 export function CommentsScreen({ route }) {
   const [comment, setComment] = useState("");
+  const [comments, setComments] = useState([]);
   const [isInputFocused, setIsInputFocused] = useState(false);
   const [isKeyboardShown, setIsKeyboardShown] = useState(false);
 
@@ -57,11 +58,12 @@ export function CommentsScreen({ route }) {
 
   const handleSubmit = () => {
     console.log(comment);
+    setComments((prevState) => [...prevState, comment]);
     setComment("");
     hideKeyboard();
   };
 
-  const renderItem = ({ item }) => <Item comment={item} />;
+  const renderItem = ({ item }) => <Item comments={item} />;
 
   return (
     <TouchableWithoutFeedback onPress={hideKeyboard}>
@@ -69,9 +71,9 @@ export function CommentsScreen({ route }) {
         <Image style={styles.image} source={{ uri: route.params.photo }} />
         <FlatList
           style={styles.commentsList}
-          data={DATA}
+          data={comments}
           renderItem={renderItem}
-          keyExtractor={(comment) => comment.id}
+          keyExtractor={(comment, index) => index.toString()}
         />
         <View style={styles.inputContainer}>
           <TextInput
