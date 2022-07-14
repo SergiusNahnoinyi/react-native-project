@@ -1,4 +1,6 @@
+import React, { useLayoutEffect } from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import { TouchableOpacity } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
@@ -6,7 +8,23 @@ import { PostsScreen, CommentsScreen } from "../nested";
 
 const NestedStack = createNativeStackNavigator();
 
-export function MainScreen() {
+export function MainScreen({ navigation, route }) {
+  useLayoutEffect(() => {
+    const routeName = getFocusedRouteNameFromRoute(route);
+    if (routeName === "Comments") {
+      navigation.setOptions({ tabBarStyle: { display: "none" } });
+    } else {
+      navigation.setOptions({
+        tabBarStyle: {
+          height: 83,
+          alignItems: "center",
+          paddingTop: 9,
+          paddingBottom: 34,
+        },
+      });
+    }
+  }, [navigation, route]);
+
   return (
     <NestedStack.Navigator
       initialRouteName={PostsScreen}
