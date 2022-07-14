@@ -7,43 +7,12 @@ import {
   StyleSheet,
   View,
   Image,
-  FlatList,
-  Text,
   TextInput,
   TouchableOpacity,
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 
-const DATA = [
-  {
-    id: "1",
-    text: "Lorem 1 lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem",
-    date: "06 June 2022 | 11:00",
-  },
-  {
-    id: "2",
-    text: "Lorem 2 lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem",
-    date: "07 June 2022 | 12:00",
-  },
-  {
-    id: "3",
-    text: "Lorem 3 lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem",
-    date: "08 June 2022 | 13:00",
-  },
-];
-
-const Item = ({ comments }) => (
-  <View style={styles.commentsItem}>
-    <Image
-      style={styles.userAvatar}
-      source={require("../../assets/images/avatar.jpg")}
-    />
-    <View style={styles.commentsThumb}>
-      <Text style={styles.commentsText}>{comments}</Text>
-      <Text style={styles.commentsDate}>{new Date().toLocaleString()}</Text>
-    </View>
-  </View>
-);
+import { CommentsList } from "../../components/CommentsList";
 
 export function CommentsScreen({ route }) {
   const [comment, setComment] = useState("");
@@ -63,18 +32,11 @@ export function CommentsScreen({ route }) {
     hideKeyboard();
   };
 
-  const renderItem = ({ item }) => <Item comments={item} />;
-
   return (
     <TouchableWithoutFeedback onPress={hideKeyboard}>
       <View style={styles.container}>
         <Image style={styles.image} source={{ uri: route.params.photo }} />
-        <FlatList
-          style={styles.commentsList}
-          data={comments}
-          renderItem={renderItem}
-          keyExtractor={(comment, index) => index.toString()}
-        />
+        <CommentsList comments={comments} />
         <View style={styles.inputContainer}>
           <TextInput
             style={[styles.input, isInputFocused && styles.inputFocused]}
@@ -111,38 +73,6 @@ const styles = StyleSheet.create({
     height: 240,
     marginBottom: 32,
     borderRadius: 8,
-  },
-  commentsList: {
-    marginBottom: 31,
-  },
-  commentsItem: {
-    marginBottom: 24,
-    flexDirection: "row",
-  },
-  userAvatar: {
-    width: 28,
-    height: 28,
-    marginRight: 16,
-    borderRadius: 50,
-  },
-  commentsThumb: {
-    flex: 1,
-    padding: 16,
-    borderRadius: 6,
-    backgroundColor: "#00000008",
-  },
-  commentsText: {
-    marginBottom: 8,
-    fontFamily: "Roboto-Regular",
-    fontSize: 13,
-    lineHeight: 18,
-  },
-  commentsDate: {
-    fontFamily: "Roboto-Regular",
-    fontSize: 10,
-    lineHeight: 12,
-    textAlign: "right",
-    color: "#BDBDBD",
   },
   inputContainer: {
     position: "relative",
