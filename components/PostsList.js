@@ -8,22 +8,22 @@ import {
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
 
-export function PostsList({ navigation }) {
+export function PostsList({ navigation, posts }) {
   return (
     <FlatList
       style={styles.postsList}
       data={posts}
       keyExtractor={(post, index) => index.toString()}
-      renderItem={({ post }) => (
+      renderItem={({ item }) => (
         <View style={styles.postsItem}>
-          <Image style={styles.image} source={{ uri: post.photo }} />
-          <Text style={styles.postsDescription}>{post.photoName}</Text>
+          <Image style={styles.image} source={{ uri: item.photo }} />
+          <Text style={styles.postsDescription}>{item.photoName}</Text>
           <View style={styles.postsThumb}>
             <TouchableOpacity
               style={[styles.button, { marginRight: 24 }]}
               activeOpacity={0.8}
               onPress={() =>
-                navigation.navigate("Comments", { photo: post.photo })
+                navigation.navigate("Comments", { photo: item.photo })
               }
             >
               <Feather
@@ -52,7 +52,7 @@ export function PostsList({ navigation }) {
                 style={{ marginRight: 6 }}
               />
               <Text style={[styles.text, { textDecorationLine: "underline" }]}>
-                {post.location}
+                {item.location}
               </Text>
             </TouchableOpacity>
           </View>
