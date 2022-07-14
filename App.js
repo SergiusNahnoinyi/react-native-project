@@ -85,6 +85,7 @@ export default function App() {
             component={CreatePostsScreen}
             options={{
               headerShown: true,
+              tabBarHideOnKeyboard: true,
               tabBarIcon: ({ focused, size, color }) => (
                 <Ionicons name="add-outline" size={24} color={color} />
               ),
