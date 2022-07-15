@@ -52,7 +52,7 @@ export function PostsList({ navigation, posts }) {
               style={styles.button}
               activeOpacity={0.8}
               onPress={() =>
-                navigation.navigate("Maps", { location: item.location })
+                navigation.navigate("Maps", { location: item.geoposition })
               }
             >
               <Feather
