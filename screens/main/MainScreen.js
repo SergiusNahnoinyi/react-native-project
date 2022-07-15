@@ -12,7 +12,7 @@ export function MainScreen({ navigation, route }) {
   useLayoutEffect(() => {
     const routeName = getFocusedRouteNameFromRoute(route);
 
-    if (routeName === "Comments") {
+    if (routeName === "Comments" || routeName === "Maps") {
       navigation.setOptions({ tabBarStyle: { display: "none" } });
     } else {
       navigation.setOptions({
