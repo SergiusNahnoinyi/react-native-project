@@ -48,7 +48,13 @@ export function PostsList({ navigation, posts }) {
               />
               <Text style={styles.text}>{likes}</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.button} activeOpacity={0.8}>
+            <TouchableOpacity
+              style={styles.button}
+              activeOpacity={0.8}
+              onPress={() =>
+                navigation.navigate("Maps", { location: item.location })
+              }
+            >
               <Feather
                 name="map-pin"
                 size={24}
