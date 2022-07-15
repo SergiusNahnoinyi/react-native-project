@@ -1,9 +1,10 @@
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Dimensions } from "react-native";
+import MapView, { Marker } from "react-native-maps";
 
 export function MapScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>MapScreen</Text>
+      <MapView style={styles.map} />
     </View>
   );
 }
@@ -11,13 +12,12 @@ export function MapScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingVertical: 32,
-    paddingHorizontal: 16,
-    backgroundColor: "white",
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
-  text: {
-    fontFamily: "Roboto-Medium",
-    fontSize: 16,
-    lineHeight: 19,
+  map: {
+    width: Dimensions.get("window").width,
+    height: Dimensions.get("window").height,
   },
 });
