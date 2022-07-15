@@ -4,7 +4,7 @@ import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import { TouchableOpacity } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
 
-import { PostsScreen, CommentsScreen } from "../nested";
+import { PostsScreen, CommentsScreen, MapScreen } from "../nested";
 
 const NestedStack = createNativeStackNavigator();
 
@@ -55,6 +55,7 @@ export function MainScreen({ navigation, route }) {
         }}
       />
       <NestedStack.Screen name="Comments" component={CommentsScreen} />
+      <NestedStack.Screen name="Maps" component={MapScreen} />
     </NestedStack.Navigator>
   );
 }
