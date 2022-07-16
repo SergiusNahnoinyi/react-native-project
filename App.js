@@ -5,7 +5,7 @@ import { useFonts } from "expo-font";
 
 import { AuthStackNavigator } from "./components/AuthStackNavigator";
 import { BottomTabNavigator } from "./components/BottomTabNavigator";
-import { store } from "./redux";
+import { store } from "./redux/store";
 
 export default function App() {
   const [isAuthorised, setIsAuthorised] = useState(true);
