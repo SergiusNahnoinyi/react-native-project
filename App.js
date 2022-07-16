@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { NavigationContainer } from "@react-navigation/native";
+import { Provider } from "react-redux";
 import { useFonts } from "expo-font";
 
 import { AuthStackNavigator } from "./components/AuthStackNavigator";
 import { BottomTabNavigator } from "./components/BottomTabNavigator";
+import { store } from "./redux";
 
 export default function App() {
   const [isAuthorised, setIsAuthorised] = useState(true);
@@ -19,8 +21,10 @@ export default function App() {
   }
 
   return (
-    <NavigationContainer>
-      {!isAuthorised ? <AuthStackNavigator /> : <BottomTabNavigator />}
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        {!isAuthorised ? <AuthStackNavigator /> : <BottomTabNavigator />}
+      </NavigationContainer>
+    </Provider>
   );
 }
