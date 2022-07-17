@@ -1,11 +1,18 @@
 import { initializeApp } from "firebase/app";
-import { API_KEY, SENDER_ID, APP_ID } from "@env";
+import {
+  API_KEY,
+  AUTH_DOMAIN,
+  PROJECT_ID,
+  STORAGE_BUCKET,
+  SENDER_ID,
+  APP_ID,
+} from "@env";
 
 const firebaseConfig = {
   apiKey: API_KEY,
-  authDomain: "react-native-project-de2c0.firebaseapp.com",
-  projectId: "react-native-project-de2c0",
-  storageBucket: "react-native-project-de2c0.appspot.com",
+  authDomain: AUTH_DOMAIN,
+  projectId: PROJECT_ID,
+  storageBucket: STORAGE_BUCKET,
   messagingSenderId: SENDER_ID,
   appId: APP_ID,
 };
