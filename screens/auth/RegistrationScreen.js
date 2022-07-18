@@ -13,8 +13,11 @@ import {
   TouchableOpacity,
   Pressable,
 } from "react-native";
+import { useDispatch } from "react-redux";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useTogglePasswordVisibility } from "../../hooks/useTogglePasswordVisibility";
+
+import { signUp } from "../../redux/auth/authOperations";
 
 export function RegistrationScreen({ navigation }) {
   const [name, setName] = useState("");
@@ -28,6 +31,8 @@ export function RegistrationScreen({ navigation }) {
     email: false,
     password: false,
   });
+
+  const dispatch = useDispatch();
 
   const handleInputFocus = (textInput) => {
     setIsInputFocused({
@@ -46,7 +51,7 @@ export function RegistrationScreen({ navigation }) {
   };
 
   const handleSubmit = () => {
-    console.log(name, email, password);
+    dispatch(signUp({ email, password }));
     setName("");
     setEmail("");
     setPassword("");
