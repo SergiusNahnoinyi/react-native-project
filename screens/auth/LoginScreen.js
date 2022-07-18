@@ -6,15 +6,17 @@ import {
   Platform,
   StyleSheet,
   View,
-  Image,
   ImageBackground,
   Text,
   TextInput,
   TouchableOpacity,
   Pressable,
 } from "react-native";
+import { useDispatch } from "react-redux";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { useTogglePasswordVisibility } from "../../hooks/useTogglePasswordVisibility";
+
+import { signIn } from "../../redux/auth/authOperations";
 
 export function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
@@ -26,6 +28,8 @@ export function LoginScreen({ navigation }) {
     email: false,
     password: false,
   });
+
+  const dispatch = useDispatch();
 
   const handleInputFocus = (textInput) => {
     setIsInputFocused({
@@ -44,7 +48,7 @@ export function LoginScreen({ navigation }) {
   };
 
   const handleSubmit = () => {
-    console.log(email, password);
+    dispatch(signIn({ email, password }));
     setEmail("");
     setPassword("");
     hideKeyboard();
