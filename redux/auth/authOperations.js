@@ -2,6 +2,7 @@ import { auth } from "../../firebase/config";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
   updateProfile,
   onAuthStateChanged,
 } from "firebase/auth";
@@ -37,6 +38,11 @@ export const signIn =
       alert(error.message);
     }
   };
+
+export const logOut = () => async (dispatch, getState) => {
+  await signOut(auth);
+  dispatch(authSlice.actions.signOutUser());
+};
 
 export const changeUserStatus = () => async (dispatch, getState) => {
   await onAuthStateChanged(auth, (user) => {

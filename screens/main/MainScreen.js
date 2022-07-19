@@ -1,8 +1,11 @@
 import React, { useLayoutEffect } from "react";
+import { useDispatch } from "react-redux";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import { TouchableOpacity } from "react-native";
 import { MaterialIcons } from "@expo/vector-icons";
+
+import { logOut } from "../../redux/auth/authOperations";
 
 import { PostsScreen, CommentsScreen, MapScreen } from "../nested";
 
@@ -26,6 +29,8 @@ export function MainScreen({ navigation, route }) {
     }
   }, [navigation, route]);
 
+  const dispatch = useDispatch();
+
   return (
     <NestedStack.Navigator
       initialRouteName={PostsScreen}
@@ -47,7 +52,7 @@ export function MainScreen({ navigation, route }) {
             <TouchableOpacity
               style={{ width: 24 }}
               activeOpacity={0.8}
-              // onPress={}
+              onPress={() => dispatch(logOut())}
             >
               <MaterialIcons name="logout" size={24} color={"#BDBDBD"} />
             </TouchableOpacity>
