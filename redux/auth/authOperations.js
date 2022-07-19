@@ -3,6 +3,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   updateProfile,
+  onAuthStateChanged,
 } from "firebase/auth";
 
 import { authSlice } from "./authSlice";
@@ -36,3 +37,18 @@ export const signIn =
       alert(error.message);
     }
   };
+
+export const changeUserStatus = () => async (dispatch, getState) => {
+  await onAuthStateChanged(auth, (user) => {
+    if (user) {
+      dispatch(
+        authSlice.actions.updateUserProfile({
+          id: auth.currentUser.uid,
+          name: auth.currentUser.displayName,
+          email: auth.currentUser.email,
+        })
+      );
+      dispatch(authSlice.actions.changeStatus({ isAuthorized: true }));
+    }
+  });
+};

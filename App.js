@@ -1,14 +1,21 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
+import { Provider, useDispatch, useSelector } from "react-redux";
 import { NavigationContainer } from "@react-navigation/native";
-import { Provider } from "react-redux";
 import { useFonts } from "expo-font";
+
+import { changeUserStatus } from "./redux/auth/authOperations";
+import { store } from "./redux/store";
 
 import { AuthStackNavigator } from "./components/AuthStackNavigator";
 import { BottomTabNavigator } from "./components/BottomTabNavigator";
-import { store } from "./redux/store";
 
 export default function App() {
-  const [isAuthorised, setIsAuthorised] = useState(true);
+  const dispatch = useDispatch();
+  const isAuthorized = useSelector((state) => state.auth.isAuthorized);
+
+  useEffect(() => {
+    dispatch(changeUserStatus());
+  }, []);
 
   const [loaded] = useFonts({
     "Roboto-Regular": require("./assets/fonts/Roboto-Regular.ttf"),
@@ -23,7 +30,7 @@ export default function App() {
   return (
     <Provider store={store}>
       <NavigationContainer>
-        {!isAuthorised ? <AuthStackNavigator /> : <BottomTabNavigator />}
+        {!isAuthorized ? <AuthStackNavigator /> : <BottomTabNavigator />}
       </NavigationContainer>
     </Provider>
   );
