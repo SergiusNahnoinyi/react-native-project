@@ -6,7 +6,10 @@ import {
   TouchableOpacity,
   Text,
 } from "react-native";
+import { useDispatch } from "react-redux";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
+
+import { logOut } from "../../redux/auth/authOperations";
 
 import { PostsList } from "../../components/PostsList";
 
@@ -41,6 +44,8 @@ const posts = [
 ];
 
 export function ProfileScreen({ navigation }) {
+  const dispatch = useDispatch();
+
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -57,7 +62,11 @@ export function ProfileScreen({ navigation }) {
               <Ionicons name="add-circle-outline" size={25} color={"#E8E8E8"} />
             </TouchableOpacity>
           </View>
-          <TouchableOpacity style={styles.logoutButton} activeOpacity={0.8}>
+          <TouchableOpacity
+            style={styles.logoutButton}
+            activeOpacity={0.8}
+            onPress={() => dispatch(logOut())}
+          >
             <MaterialIcons name="logout" size={24} color={"#BDBDBD"} />
           </TouchableOpacity>
           <Text style={styles.profileTitle}>Natalia Romanova</Text>
