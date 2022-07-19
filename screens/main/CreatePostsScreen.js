@@ -17,7 +17,7 @@ import * as MediaLibrary from "expo-media-library";
 import * as Location from "expo-location";
 import { Ionicons, Feather } from "@expo/vector-icons";
 
-import { ref, uploadBytes } from "firebase/storage";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../../firebase/config";
 
 export function CreatePostsScreen({ navigation }) {
@@ -70,6 +70,8 @@ export function CreatePostsScreen({ navigation }) {
     const storageRef = ref(storage, `photos/${fileName}`);
 
     await uploadBytes(storageRef, file);
+    const photoURL = await getDownloadURL(storageRef);
+    console.log(photoURL);
   };
 
   const handleSubmit = () => {
