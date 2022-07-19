@@ -11,10 +11,14 @@ import {
   Text,
   TextInput,
 } from "react-native";
+
 import { Camera } from "expo-camera";
 import * as MediaLibrary from "expo-media-library";
 import * as Location from "expo-location";
 import { Ionicons, Feather } from "@expo/vector-icons";
+
+import { ref, uploadBytes } from "firebase/storage";
+import { storage } from "../../firebase/config";
 
 export function CreatePostsScreen({ navigation }) {
   const [photo, setPhoto] = useState(null);
@@ -59,14 +63,23 @@ export function CreatePostsScreen({ navigation }) {
     }
   };
 
+  const uploadPhotoToStorage = async () => {
+    const response = await fetch(photo);
+    const file = await response.blob();
+    const fileName = Date.now().toString();
+    const storageRef = ref(storage, `photos/${fileName}`);
+
+    await uploadBytes(storageRef, file);
+  };
+
   const handleSubmit = () => {
+    uploadPhotoToStorage();
+    navigation.navigate("Posts", { photo, photoName, location, geoposition });
+    hideKeyboard();
     setPhoto(null);
     setPhotoName("");
     setLocation("");
     setGeoposition("");
-    hideKeyboard();
-    navigation.navigate("Posts", { photo, photoName, location, geoposition });
-    console.log(photo, photoName, location, geoposition);
   };
 
   return (
