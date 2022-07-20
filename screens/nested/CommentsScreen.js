@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import {
   TouchableWithoutFeedback,
   Keyboard,
@@ -12,6 +13,9 @@ import {
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 
+import { doc, getDoc, updateDoc } from "firebase/firestore";
+import { db } from "../../firebase/config";
+
 import { CommentsList } from "../../components/CommentsList";
 
 export function CommentsScreen({ route }) {
@@ -20,13 +24,34 @@ export function CommentsScreen({ route }) {
   const [isInputFocused, setIsInputFocused] = useState(false);
   const [isKeyboardShown, setIsKeyboardShown] = useState(false);
 
+  const { userName, userEmail } = useSelector((state) => state.auth);
+  const { postId, postPhoto, postComments } = route.params;
+
   const hideKeyboard = () => {
     setIsKeyboardShown(false);
     Keyboard.dismiss();
   };
 
+  const writeCommentToDatabase = async () => {
+    if (comment) {
+      const docRef = doc(db, "posts", postId);
+
+      await updateDoc(docRef, {
+        comments: [
+          ...comments,
+          {
+            comment: comment,
+            userEmail,
+            userName,
+            date: Date.now(),
+          },
+        ],
+      });
+    }
+  };
+
   const handleSubmit = () => {
-    console.log(comment);
+    writeCommentToDatabase();
     setComments((prevState) => [...prevState, comment]);
     setComment("");
     hideKeyboard();
@@ -35,7 +60,7 @@ export function CommentsScreen({ route }) {
   return (
     <TouchableWithoutFeedback onPress={hideKeyboard}>
       <View style={styles.container}>
-        <Image style={styles.image} source={{ uri: route.params.photo }} />
+        <Image style={styles.image} source={{ uri: postPhoto }} />
         <CommentsList comments={comments} />
         <View style={styles.inputContainer}>
           <TextInput

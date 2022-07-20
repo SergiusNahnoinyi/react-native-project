@@ -26,7 +26,11 @@ export function PostsList({ navigation, posts }) {
               style={[styles.button, { marginRight: 24 }]}
               activeOpacity={0.8}
               onPress={() =>
-                navigation.navigate("Comments", { photo: item.photo })
+                navigation.navigate("Comments", {
+                  postPhoto: item.photo,
+                  postId: item.postId,
+                  postComments: item.comments,
+                })
               }
             >
               <Feather
