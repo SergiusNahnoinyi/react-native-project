@@ -80,13 +80,12 @@ export function CreatePostsScreen({ navigation }) {
   };
 
   const uploadPostToDatabase = async () => {
-    const photoURL = await uploadPhotoToStorage();
     const { latitude, longitude } = geoposition;
 
     await addDoc(collection(db, "posts"), {
       userId,
       userName,
-      photo: photoURL,
+      photo,
       photoName,
       location,
       latitude,
