@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import {
   TouchableWithoutFeedback,
   Keyboard,
@@ -18,7 +19,8 @@ import * as Location from "expo-location";
 import { Ionicons, Feather } from "@expo/vector-icons";
 
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { storage } from "../../firebase/config";
+import { collection, addDoc } from "firebase/firestore";
+import { storage, db } from "../../firebase/config";
 
 export function CreatePostsScreen({ navigation }) {
   const [photo, setPhoto] = useState(null);
@@ -29,6 +31,8 @@ export function CreatePostsScreen({ navigation }) {
   const [hasCameraPermission, setHasCameraPermission] = useState(null);
   const [hasLocationPermission, setHasLocationPermission] = useState(null);
   const [cameraRef, setCameraRef] = useState(null);
+
+  const { userId, userName } = useSelector((state) => state.auth);
 
   useEffect(() => {
     (async () => {
@@ -71,11 +75,31 @@ export function CreatePostsScreen({ navigation }) {
 
     await uploadBytes(storageRef, file);
     const photoURL = await getDownloadURL(storageRef);
-    console.log(photoURL);
+
+    return photoURL;
+  };
+
+  const uploadPostToDatabase = async () => {
+    const photoURL = await uploadPhotoToStorage();
+    const { latitude, longitude } = geoposition;
+
+    await addDoc(collection(db, "posts"), {
+      userId,
+      userName,
+      photo: photoURL,
+      photoName,
+      location,
+      latitude,
+      longitude,
+      comments: [],
+      likes: [],
+      date: Date.now().toString(),
+    });
   };
 
   const handleSubmit = () => {
     uploadPhotoToStorage();
+    uploadPostToDatabase();
     navigation.navigate("Posts", { photo, photoName, location, geoposition });
     hideKeyboard();
     setPhoto(null);
