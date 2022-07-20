@@ -70,8 +70,7 @@ export function CreatePostsScreen({ navigation }) {
   const uploadPhotoToStorage = async () => {
     const response = await fetch(photo);
     const file = await response.blob();
-    const fileName = Date.now().toString();
-    const storageRef = ref(storage, `photos/${fileName}`);
+    const storageRef = ref(storage, `photos/${photoName}`);
 
     await uploadBytes(storageRef, file);
     const photoURL = await getDownloadURL(storageRef);
@@ -81,11 +80,12 @@ export function CreatePostsScreen({ navigation }) {
 
   const uploadPostToDatabase = async () => {
     const { latitude, longitude } = geoposition;
+    const photoURL = await uploadPhotoToStorage();
 
     await addDoc(collection(db, "posts"), {
       userId,
       userName,
-      photo,
+      photo: photoURL,
       photoName,
       location,
       latitude,
@@ -97,7 +97,6 @@ export function CreatePostsScreen({ navigation }) {
   };
 
   const handleSubmit = () => {
-    uploadPhotoToStorage();
     uploadPostToDatabase();
     navigation.navigate("Posts");
     hideKeyboard();
