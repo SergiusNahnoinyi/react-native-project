@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import {
   StyleSheet,
   View,
@@ -9,8 +10,22 @@ import {
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
 
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../firebase/config";
+
 export function PostsList({ navigation, posts }) {
-  const [likes, setLikes] = useState(0);
+  const { userId } = useSelector((state) => state.auth);
+
+  const setLike = async (postId, likes) => {
+    const user = likes.find((user) => user === userId);
+
+    if (!user) {
+      const docRef = doc(db, "posts", postId);
+      await updateDoc(docRef, {
+        likes: [...likes, userId],
+      });
+    }
+  };
 
   return (
     <FlatList
@@ -36,21 +51,27 @@ export function PostsList({ navigation, posts }) {
               <Feather
                 name="message-circle"
                 size={24}
-                style={{ marginRight: 6, color: "#FF6C00" }}
+                style={{
+                  marginRight: 6,
+                  color: item.comments < 1 ? "#BDBDBD" : "#FF6C00",
+                }}
               />
-              <Text style={styles.text}>0</Text>
+              <Text style={styles.text}>{item.comments.length}</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={[styles.button, { marginRight: "auto" }]}
               activeOpacity={0.8}
-              onPress={() => setLikes(likes + 1)}
+              onPress={() => setLike(item.postId, item.likes)}
             >
               <Feather
                 name="thumbs-up"
                 size={24}
-                style={{ marginRight: 6, color: "#FF6C00" }}
+                style={{
+                  marginRight: 6,
+                  color: item.likes < 1 ? "#BDBDBD" : "#FF6C00",
+                }}
               />
-              <Text style={styles.text}>{likes}</Text>
+              <Text style={styles.text}>{item.likes.length}</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.button}
