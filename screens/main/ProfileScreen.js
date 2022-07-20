@@ -1,3 +1,5 @@
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   StyleSheet,
   View,
@@ -6,45 +8,33 @@ import {
   TouchableOpacity,
   Text,
 } from "react-native";
-import { useDispatch } from "react-redux";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 
-import { logOut } from "../../redux/auth/authOperations";
+import { collection, onSnapshot, query, orderBy } from "firebase/firestore";
+import { db } from "../../firebase/config";
 
+import { logOut } from "../../redux/auth/authOperations";
 import { PostsList } from "../../components/PostsList";
 
-const posts = [
-  {
-    id: "1",
-    photo:
-      "https://raw.githubusercontent.com/SergiusNahnoinyi/react-native-project/main/assets/images/sunset.jpg",
-    photoName: "Sunset",
-    location: "Kyiv",
-    comments: "400",
-    likes: "1400",
-  },
-  {
-    id: "2",
-    photo:
-      "https://raw.githubusercontent.com/SergiusNahnoinyi/react-native-project/main/assets/images/forest.jpg",
-    photoName: "Forest",
-    location: "Lviv",
-    comments: "395",
-    likes: "1395",
-  },
-  {
-    id: "3",
-    photo:
-      "https://raw.githubusercontent.com/SergiusNahnoinyi/react-native-project/main/assets/images/house.jpg",
-    photoName: "House",
-    location: "Venice",
-    comments: "380",
-    likes: "1380",
-  },
-];
-
 export function ProfileScreen({ navigation }) {
+  const [posts, setPosts] = useState([]);
+  const { userName } = useSelector((state) => state.auth);
+
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    getAllPosts();
+  }, []);
+
+  const getAllPosts = async () => {
+    const q = query(collection(db, "posts"), orderBy("date", "desc"));
+
+    onSnapshot(q, (querySnapshot) => {
+      setPosts(
+        querySnapshot.docs.map((doc) => ({ ...doc.data(), postId: doc.id }))
+      );
+    });
+  };
 
   return (
     <View style={styles.container}>
@@ -69,7 +59,7 @@ export function ProfileScreen({ navigation }) {
           >
             <MaterialIcons name="logout" size={24} color={"#BDBDBD"} />
           </TouchableOpacity>
-          <Text style={styles.profileTitle}>Natalia Romanova</Text>
+          <Text style={styles.profileTitle}>{userName}</Text>
           <PostsList posts={posts} navigation={navigation} />
         </View>
       </ImageBackground>
