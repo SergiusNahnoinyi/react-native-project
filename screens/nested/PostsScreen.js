@@ -1,12 +1,26 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, View, Image, Text } from "react-native";
+import { collection, onSnapshot, query, orderBy } from "firebase/firestore";
 
+import { db } from "../../firebase/config";
 import { PostsList } from "../../components/PostsList";
 
 export function PostsScreen({ navigation }) {
   const [posts, setPosts] = useState([]);
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    getAllPosts();
+  }, []);
+
+  const getAllPosts = async () => {
+    const q = query(collection(db, "posts"), orderBy("date", "desc"));
+
+    onSnapshot(q, (querySnapshot) => {
+      setPosts(
+        querySnapshot.docs.map((doc) => ({ ...doc.data(), postId: doc.id }))
+      );
+    });
+  };
 
   return (
     <View style={styles.container}>
