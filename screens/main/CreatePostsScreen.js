@@ -93,7 +93,7 @@ export function CreatePostsScreen({ navigation }) {
       longitude,
       comments: [],
       likes: [],
-      date: Date.now().toString(),
+      date: new Date().toLocaleString(),
     });
   };
 

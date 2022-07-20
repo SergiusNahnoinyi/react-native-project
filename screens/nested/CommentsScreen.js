@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import {
   TouchableWithoutFeedback,
@@ -27,6 +27,10 @@ export function CommentsScreen({ route }) {
   const { userName, userEmail } = useSelector((state) => state.auth);
   const { postId, postPhoto, postComments } = route.params;
 
+  useEffect(() => {
+    getAllComments();
+  }, []);
+
   const hideKeyboard = () => {
     setIsKeyboardShown(false);
     Keyboard.dismiss();
@@ -43,16 +47,23 @@ export function CommentsScreen({ route }) {
             comment: comment,
             userEmail,
             userName,
-            date: Date.now(),
+            date: new Date().toLocaleString(),
           },
         ],
       });
     }
   };
 
+  const getAllComments = async () => {
+    const docRef = doc(db, "posts", postId);
+    const docSnap = await getDoc(docRef);
+
+    setComments(docSnap.data().comments);
+  };
+
   const handleSubmit = () => {
     writeCommentToDatabase();
-    setComments((prevState) => [...prevState, comment]);
+    getAllComments();
     setComment("");
     hideKeyboard();
   };

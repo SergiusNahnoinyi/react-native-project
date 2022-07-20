@@ -13,10 +13,8 @@ export function CommentsList({ comments }) {
             source={require("../assets/images/avatar.jpg")}
           />
           <View style={styles.commentsThumb}>
-            <Text style={styles.commentsText}>{item}</Text>
-            <Text style={styles.commentsDate}>
-              {new Date().toLocaleString()}
-            </Text>
+            <Text style={styles.commentsText}>{item.comment}</Text>
+            <Text style={styles.commentsDate}>{item.date}</Text>
           </View>
         </View>
       )}
