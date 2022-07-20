@@ -100,7 +100,7 @@ export function CreatePostsScreen({ navigation }) {
   const handleSubmit = () => {
     uploadPhotoToStorage();
     uploadPostToDatabase();
-    navigation.navigate("Posts", { photo, photoName, location, geoposition });
+    navigation.navigate("Posts");
     hideKeyboard();
     setPhoto(null);
     setPhotoName("");

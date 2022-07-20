@@ -3,14 +3,10 @@ import { StyleSheet, View, Image, Text } from "react-native";
 
 import { PostsList } from "../../components/PostsList";
 
-export function PostsScreen({ route, navigation }) {
+export function PostsScreen({ navigation }) {
   const [posts, setPosts] = useState([]);
 
-  useEffect(() => {
-    if (route.params) {
-      setPosts((prevState) => [...prevState, route.params]);
-    }
-  }, [route.params]);
+  useEffect(() => {}, []);
 
   return (
     <View style={styles.container}>
