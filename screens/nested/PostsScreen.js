@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { StyleSheet, View, Image, Text } from "react-native";
 import { collection, onSnapshot, query, orderBy } from "firebase/firestore";
 
@@ -7,6 +8,7 @@ import { PostsList } from "../../components/PostsList";
 
 export function PostsScreen({ navigation }) {
   const [posts, setPosts] = useState([]);
+  const { userName, userEmail } = useSelector((state) => state.auth);
 
   useEffect(() => {
     getAllPosts();
@@ -30,8 +32,8 @@ export function PostsScreen({ navigation }) {
           source={require("../../assets/images/avatar.jpg")}
         />
         <View style={styles.user}>
-          <Text style={styles.userName}>Natali Romanova</Text>
-          <Text style={styles.userEmail}>email@example.com</Text>
+          <Text style={styles.userName}>{userName}</Text>
+          <Text style={styles.userEmail}>{userEmail}</Text>
         </View>
       </View>
       <PostsList posts={posts} navigation={navigation} />
