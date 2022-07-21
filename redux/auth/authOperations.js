@@ -61,3 +61,12 @@ export const changeUserStatus = () => async (dispatch, getState) => {
     }
   });
 };
+
+export const changeUsersAvatar = (avatar) => async (dispatch, getState) => {
+  if (auth.currentUser !== null) {
+    await updateProfile(user, {
+      photoURL: avatar,
+    });
+  }
+  dispatch(authSlice.actions.updateUserAvatar({ avatar: avatar }));
+};

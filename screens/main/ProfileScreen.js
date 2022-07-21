@@ -9,17 +9,11 @@ import {
   Text,
 } from "react-native";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
-
-import {
-  collection,
-  onSnapshot,
-  query,
-  orderBy,
-  where,
-} from "firebase/firestore";
+import * as ImagePicker from "expo-image-picker";
+import { collection, onSnapshot, query, where } from "firebase/firestore";
 import { db } from "../../firebase/config";
 
-import { logOut } from "../../redux/auth/authOperations";
+import { logOut, changeUsersAvatar } from "../../redux/auth/authOperations";
 import { PostsList } from "../../components/PostsList";
 
 export function ProfileScreen({ navigation }) {
@@ -42,6 +36,20 @@ export function ProfileScreen({ navigation }) {
     });
   };
 
+  const pickAvatar = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.cancelled) {
+      dispatch(changeUsersAvatar(result.uri));
+    }
+  };
+
   return (
     <View style={styles.container}>
       <ImageBackground
@@ -51,8 +59,12 @@ export function ProfileScreen({ navigation }) {
         <View style={styles.profile}>
           <View style={styles.avatarContainer}>
             <Image style={styles.avatarImage} source={{ uri: userAvatar }} />
-            <TouchableOpacity style={styles.avatarButton} activeOpacity={0.8}>
-              <Ionicons name="add-circle-outline" size={25} color={"#E8E8E8"} />
+            <TouchableOpacity
+              style={styles.avatarButton}
+              activeOpacity={0.8}
+              onPress={pickAvatar}
+            >
+              <Ionicons name="add-circle-outline" size={25} color={"#FF6C00"} />
             </TouchableOpacity>
           </View>
           <TouchableOpacity
@@ -104,7 +116,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     bottom: 14,
     right: 0,
-    transform: [{ translateX: 13.5 }, { rotate: "45deg" }],
+    transform: [{ translateX: 13.5 }],
   },
   logoutButton: {
     position: "absolute",

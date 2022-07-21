@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
     height: 28,
     marginRight: 16,
     borderRadius: 50,
+    backgroundColor: "#F6F6F6",
   },
   commentsThumb: {
     flex: 1,
