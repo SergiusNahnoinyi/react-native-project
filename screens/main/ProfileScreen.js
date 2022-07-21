@@ -10,7 +10,13 @@ import {
 } from "react-native";
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 
-import { collection, onSnapshot, query, orderBy } from "firebase/firestore";
+import {
+  collection,
+  onSnapshot,
+  query,
+  orderBy,
+  where,
+} from "firebase/firestore";
 import { db } from "../../firebase/config";
 
 import { logOut } from "../../redux/auth/authOperations";
@@ -18,16 +24,16 @@ import { PostsList } from "../../components/PostsList";
 
 export function ProfileScreen({ navigation }) {
   const [posts, setPosts] = useState([]);
-  const { userName } = useSelector((state) => state.auth);
+  const { userName, userId } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    getAllPosts();
+    getAllUsersPosts();
   }, []);
 
-  const getAllPosts = async () => {
-    const q = query(collection(db, "posts"), orderBy("date", "desc"));
+  const getAllUsersPosts = async () => {
+    const q = query(collection(db, "posts"), where("userId", "==", userId));
 
     onSnapshot(q, (querySnapshot) => {
       setPosts(
