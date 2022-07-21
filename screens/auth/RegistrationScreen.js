@@ -14,12 +14,14 @@ import {
   Pressable,
 } from "react-native";
 import { useDispatch } from "react-redux";
+import * as ImagePicker from "expo-image-picker";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { useTogglePasswordVisibility } from "../../hooks/useTogglePasswordVisibility";
 
 import { signUp } from "../../redux/auth/authOperations";
 
 export function RegistrationScreen({ navigation }) {
+  const [avatar, setAvatar] = useState(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -34,11 +36,26 @@ export function RegistrationScreen({ navigation }) {
 
   const dispatch = useDispatch();
 
+  const pickAvatar = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.cancelled) {
+      setAvatar(result.uri);
+    }
+  };
+
   const handleInputFocus = (textInput) => {
     setIsInputFocused({
       [textInput]: true,
     });
   };
+
   const handleInputBlur = (textInput) => {
     setIsInputFocused({
       [textInput]: false,
@@ -75,13 +92,11 @@ export function RegistrationScreen({ navigation }) {
               }}
             >
               <View style={styles.avatarContainer}>
-                <Image
-                  style={styles.avatarImage}
-                  source={require("../../assets/images/avatar.jpg")}
-                />
+                <Image style={styles.avatarImage} source={{ uri: avatar }} />
                 <TouchableOpacity
                   style={styles.avatarButton}
                   activeOpacity={0.8}
+                  onPress={pickAvatar}
                 >
                   <Ionicons
                     name="add-circle-outline"
