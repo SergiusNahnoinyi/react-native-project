@@ -8,10 +8,13 @@ import {
   TouchableOpacity,
   Text,
 } from "react-native";
+
 import { Ionicons, MaterialIcons } from "@expo/vector-icons";
 import * as ImagePicker from "expo-image-picker";
+
 import { collection, onSnapshot, query, where } from "firebase/firestore";
-import { db } from "../../firebase/config";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { db, storage } from "../../firebase/config";
 
 import { logOut, changeUsersAvatar } from "../../redux/auth/authOperations";
 import { PostsList } from "../../components/PostsList";
@@ -36,6 +39,17 @@ export function ProfileScreen({ navigation }) {
     });
   };
 
+  const uploadAvatarToStorage = async (uri) => {
+    const response = await fetch(uri);
+    const file = await response.blob();
+    const storageRef = ref(storage, `avatars/${userName}`);
+
+    await uploadBytes(storageRef, file);
+    const avatarURL = await getDownloadURL(storageRef);
+
+    return avatarURL;
+  };
+
   const pickAvatar = async () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -46,7 +60,8 @@ export function ProfileScreen({ navigation }) {
     });
 
     if (!result.cancelled) {
-      dispatch(changeUsersAvatar(result.uri));
+      const avatarURL = await uploadAvatarToStorage(result.uri);
+      dispatch(changeUsersAvatar(avatarURL));
     }
   };
 

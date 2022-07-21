@@ -14,11 +14,16 @@ import {
   Pressable,
 } from "react-native";
 import { useDispatch } from "react-redux";
+
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { storage } from "../../firebase/config";
+
 import * as ImagePicker from "expo-image-picker";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+
 import { useTogglePasswordVisibility } from "../../hooks/useTogglePasswordVisibility";
 
-import { signUp } from "../../redux/auth/authOperations";
+import { signUp, changeUsersAvatar } from "../../redux/auth/authOperations";
 
 export function RegistrationScreen({ navigation }) {
   const [avatar, setAvatar] = useState(null);
@@ -36,6 +41,17 @@ export function RegistrationScreen({ navigation }) {
 
   const dispatch = useDispatch();
 
+  const uploadAvatarToStorage = async (uri) => {
+    const response = await fetch(uri);
+    const file = await response.blob();
+    const storageRef = ref(storage, `avatars/${name}`);
+
+    await uploadBytes(storageRef, file);
+    const avatarURL = await getDownloadURL(storageRef);
+
+    return avatarURL;
+  };
+
   const pickAvatar = async () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -46,7 +62,9 @@ export function RegistrationScreen({ navigation }) {
     });
 
     if (!result.cancelled) {
-      setAvatar(result.uri);
+      const avatarURL = await uploadAvatarToStorage(result.uri);
+      dispatch(changeUsersAvatar(avatarURL));
+      setAvatar(avatarURL);
     }
   };
 
