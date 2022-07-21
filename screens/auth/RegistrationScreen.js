@@ -68,7 +68,7 @@ export function RegistrationScreen({ navigation }) {
   };
 
   const handleSubmit = () => {
-    dispatch(signUp({ name, email, password }));
+    dispatch(signUp({ name, email, password, avatar }));
     setName("");
     setEmail("");
     setPassword("");
