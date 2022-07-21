@@ -60,6 +60,7 @@ export function CreatePostsScreen({ navigation }) {
   const takePhoto = async () => {
     if (cameraRef) {
       const { uri } = await cameraRef.takePictureAsync();
+      await MediaLibrary.requestPermissionsAsync();
       await MediaLibrary.createAssetAsync(uri);
       setPhoto(uri);
       const { coords } = await Location.getCurrentPositionAsync();
