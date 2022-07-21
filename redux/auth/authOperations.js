@@ -64,7 +64,7 @@ export const changeUserStatus = () => async (dispatch, getState) => {
 
 export const changeUsersAvatar = (avatar) => async (dispatch, getState) => {
   if (auth.currentUser !== null) {
-    await updateProfile(user, {
+    await updateProfile(auth.currentUser, {
       photoURL: avatar,
     });
   }

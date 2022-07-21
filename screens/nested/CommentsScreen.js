@@ -76,24 +76,29 @@ export function CommentsScreen({ route }) {
       <View style={styles.container}>
         <Image style={styles.image} source={{ uri: postPhoto }} />
         <CommentsList comments={comments} />
-        <View style={styles.inputContainer}>
-          <TextInput
-            style={[styles.input, isInputFocused && styles.inputFocused]}
-            placeholder="Comment"
-            textContentType="name"
-            value={comment}
-            onBlur={() => setIsInputFocused(false)}
-            onFocus={() => setIsInputFocused(true)}
-            onChangeText={(text) => setComment(text)}
-          />
-          <TouchableOpacity
-            style={styles.submitButton}
-            activeOpacity={0.8}
-            onPress={handleSubmit}
-          >
-            <AntDesign name="arrowup" size={20} color="#FFFFFF" />
-          </TouchableOpacity>
-        </View>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : ""}
+          keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0}
+        >
+          <View style={styles.inputContainer}>
+            <TextInput
+              style={[styles.input, isInputFocused && styles.inputFocused]}
+              placeholder="Comment"
+              textContentType="name"
+              value={comment}
+              onBlur={() => setIsInputFocused(false)}
+              onFocus={() => setIsInputFocused(true)}
+              onChangeText={(text) => setComment(text)}
+            />
+            <TouchableOpacity
+              style={styles.submitButton}
+              activeOpacity={0.8}
+              onPress={handleSubmit}
+            >
+              <AntDesign name="arrowup" size={20} color="#FFFFFF" />
+            </TouchableOpacity>
+          </View>
+        </KeyboardAvoidingView>
       </View>
     </TouchableWithoutFeedback>
   );
