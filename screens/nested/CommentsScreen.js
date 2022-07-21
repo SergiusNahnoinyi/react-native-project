@@ -24,7 +24,9 @@ export function CommentsScreen({ route }) {
   const [isInputFocused, setIsInputFocused] = useState(false);
   const [isKeyboardShown, setIsKeyboardShown] = useState(false);
 
-  const { userName, userEmail } = useSelector((state) => state.auth);
+  const { userName, userEmail, userAvatar } = useSelector(
+    (state) => state.auth
+  );
   const { postId, postPhoto, postComments } = route.params;
 
   useEffect(() => {
@@ -47,6 +49,7 @@ export function CommentsScreen({ route }) {
             comment: comment,
             userEmail,
             userName,
+            userAvatar,
             date: new Date().toLocaleString(),
           },
         ],

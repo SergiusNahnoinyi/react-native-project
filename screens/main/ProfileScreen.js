@@ -24,7 +24,7 @@ import { PostsList } from "../../components/PostsList";
 
 export function ProfileScreen({ navigation }) {
   const [posts, setPosts] = useState([]);
-  const { userName, userId } = useSelector((state) => state.auth);
+  const { userName, userId, userAvatar } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
 
@@ -50,10 +50,7 @@ export function ProfileScreen({ navigation }) {
       >
         <View style={styles.profile}>
           <View style={styles.avatarContainer}>
-            <Image
-              style={styles.avatarImage}
-              source={require("../../assets/images/avatar.jpg")}
-            />
+            <Image style={styles.avatarImage} source={{ uri: userAvatar }} />
             <TouchableOpacity style={styles.avatarButton} activeOpacity={0.8}>
               <Ionicons name="add-circle-outline" size={25} color={"#E8E8E8"} />
             </TouchableOpacity>

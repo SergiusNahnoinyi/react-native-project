@@ -8,7 +8,9 @@ import { PostsList } from "../../components/PostsList";
 
 export function PostsScreen({ navigation }) {
   const [posts, setPosts] = useState([]);
-  const { userName, userEmail } = useSelector((state) => state.auth);
+  const { userName, userEmail, userAvatar } = useSelector(
+    (state) => state.auth
+  );
 
   useEffect(() => {
     getAllPosts();
@@ -27,10 +29,7 @@ export function PostsScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.userContainer}>
-        <Image
-          style={styles.avatarImage}
-          source={require("../../assets/images/avatar.jpg")}
-        />
+        <Image style={styles.avatarImage} source={{ uri: userAvatar }} />
         <View style={styles.user}>
           <Text style={styles.userName}>{userName}</Text>
           <Text style={styles.userEmail}>{userEmail}</Text>
@@ -58,6 +57,7 @@ const styles = StyleSheet.create({
     height: 60,
     marginRight: 8,
     borderRadius: 16,
+    backgroundColor: "#F6F6F6",
   },
   userName: {
     fontFamily: "Roboto-Bold",

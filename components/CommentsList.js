@@ -8,10 +8,7 @@ export function CommentsList({ comments }) {
       keyExtractor={(comment, index) => index.toString()}
       renderItem={({ item }) => (
         <View style={styles.commentsItem}>
-          <Image
-            style={styles.userAvatar}
-            source={require("../assets/images/avatar.jpg")}
-          />
+          <Image style={styles.userAvatar} source={{ uri: item.userAvatar }} />
           <View style={styles.commentsThumb}>
             <Text style={styles.commentsText}>{item.comment}</Text>
             <Text style={styles.commentsDate}>{item.date}</Text>
