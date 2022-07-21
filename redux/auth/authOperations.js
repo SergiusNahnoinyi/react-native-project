@@ -26,7 +26,6 @@ export const signUp =
           avatar: auth.currentUser.photoURL,
         })
       );
-      console.log(auth.currentUser);
     } catch (error) {
       alert(error.message);
     }
@@ -55,6 +54,7 @@ export const changeUserStatus = () => async (dispatch, getState) => {
           id: auth.currentUser.uid,
           name: auth.currentUser.displayName,
           email: auth.currentUser.email,
+          avatar: auth.currentUser.photoURL,
         })
       );
       dispatch(authSlice.actions.changeStatus({ isAuthorized: true }));
