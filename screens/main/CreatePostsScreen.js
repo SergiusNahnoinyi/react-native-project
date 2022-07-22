@@ -24,6 +24,7 @@ import { storage, db } from "../../firebase/config";
 
 export function CreatePostsScreen({ navigation }) {
   const [photo, setPhoto] = useState(null);
+  const [photoURL, setPhotoURL] = useState(null);
   const [photoName, setPhotoName] = useState("");
   const [location, setLocation] = useState("");
   const [geoposition, setGeoposition] = useState("");
@@ -33,6 +34,12 @@ export function CreatePostsScreen({ navigation }) {
   const [cameraRef, setCameraRef] = useState(null);
 
   const { userId, userName } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (photo !== null) {
+      uploadPhotoToStorage();
+    }
+  }, [photo]);
 
   useEffect(() => {
     (async () => {
@@ -63,6 +70,7 @@ export function CreatePostsScreen({ navigation }) {
       await MediaLibrary.requestPermissionsAsync();
       await MediaLibrary.createAssetAsync(uri);
       setPhoto(uri);
+
       const { coords } = await Location.getCurrentPositionAsync();
       setGeoposition(coords);
     }
@@ -71,17 +79,17 @@ export function CreatePostsScreen({ navigation }) {
   const uploadPhotoToStorage = async () => {
     const response = await fetch(photo);
     const file = await response.blob();
-    const storageRef = ref(storage, `photos/${photoName}`);
+    const fileName = Date.now().toString();
+    const storageRef = ref(storage, `photos/${fileName}`);
 
     await uploadBytes(storageRef, file);
-    const photoURL = await getDownloadURL(storageRef);
+    const photoUrl = await getDownloadURL(storageRef);
 
-    return photoURL;
+    setPhotoURL(photoUrl);
   };
 
   const uploadPostToDatabase = async () => {
     const { latitude, longitude } = geoposition;
-    const photoURL = await uploadPhotoToStorage();
 
     await addDoc(collection(db, "posts"), {
       userId,
@@ -102,6 +110,7 @@ export function CreatePostsScreen({ navigation }) {
     navigation.navigate("Posts");
     hideKeyboard();
     setPhoto(null);
+    setPhotoURL(null);
     setPhotoName("");
     setLocation("");
     setGeoposition("");
