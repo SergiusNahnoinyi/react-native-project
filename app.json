@@ -4,10 +4,10 @@
     "slug": "react-native",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/react-native.svg",
+    "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/react-native.svg",
+      "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -20,12 +20,12 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/react-native.svg",
+        "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       }
     },
     "web": {
-      "favicon": "./assets/react-native.svg"
+      "favicon": "./assets/favicon.png"
     },
     "description": "Mobile application for Android and iOS written in React Native",
     "githubUrl": "https://github.com/SergiusNahnoinyi/react-native-project"
