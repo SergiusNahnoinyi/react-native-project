@@ -10,20 +10,18 @@ import {
 import { authSlice } from "./authSlice";
 
 export const signUp =
-  ({ name, email, password, avatar }) =>
+  ({ name, email, password }) =>
   async (dispatch, getState) => {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       await updateProfile(auth.currentUser, {
         displayName: name,
-        photoURL: avatar,
       });
       dispatch(
         authSlice.actions.updateUserProfile({
           id: auth.currentUser.uid,
           name: auth.currentUser.displayName,
           email: auth.currentUser.email,
-          avatar: auth.currentUser.photoURL,
         })
       );
     } catch (error) {

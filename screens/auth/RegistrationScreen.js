@@ -41,17 +41,6 @@ export function RegistrationScreen({ navigation }) {
 
   const dispatch = useDispatch();
 
-  const uploadAvatarToStorage = async (uri) => {
-    const response = await fetch(uri);
-    const file = await response.blob();
-    const storageRef = ref(storage, `avatars/${name}`);
-
-    await uploadBytes(storageRef, file);
-    const avatarURL = await getDownloadURL(storageRef);
-
-    return avatarURL;
-  };
-
   const pickAvatar = async () => {
     // No permissions request is necessary for launching the image library
     let result = await ImagePicker.launchImageLibraryAsync({
@@ -62,10 +51,19 @@ export function RegistrationScreen({ navigation }) {
     });
 
     if (!result.cancelled) {
-      const avatarURL = await uploadAvatarToStorage(result.uri);
-      dispatch(changeUsersAvatar(avatarURL));
-      setAvatar(avatarURL);
+      setAvatar(result.uri);
     }
+  };
+
+  const uploadAvatarToStorage = async () => {
+    const response = await fetch(avatar);
+    const file = await response.blob();
+    const storageRef = ref(storage, `avatars/${name}`);
+
+    await uploadBytes(storageRef, file);
+    const avatarURL = await getDownloadURL(storageRef);
+
+    dispatch(changeUsersAvatar(avatarURL));
   };
 
   const handleInputFocus = (textInput) => {
@@ -86,7 +84,8 @@ export function RegistrationScreen({ navigation }) {
   };
 
   const handleSubmit = () => {
-    dispatch(signUp({ name, email, password, avatar }));
+    uploadAvatarToStorage();
+    dispatch(signUp({ name, email, password }));
     setName("");
     setEmail("");
     setPassword("");
