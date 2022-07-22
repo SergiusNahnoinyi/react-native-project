@@ -51,7 +51,7 @@ export function MainScreen({ navigation, route }) {
           headerRight: () => (
             <TouchableOpacity
               style={{ width: 24 }}
-              activeOpacity={0.8}
+              activeOpacity={0.5}
               onPress={() => dispatch(logOut())}
             >
               <MaterialIcons name="logout" size={24} color={"#BDBDBD"} />

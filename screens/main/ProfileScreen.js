@@ -76,7 +76,7 @@ export function ProfileScreen({ navigation }) {
             <Image style={styles.avatarImage} source={{ uri: userAvatar }} />
             <TouchableOpacity
               style={styles.avatarButton}
-              activeOpacity={0.8}
+              activeOpacity={0.5}
               onPress={pickAvatar}
             >
               <Ionicons name="add-circle-outline" size={25} color={"#FF6C00"} />
@@ -84,7 +84,7 @@ export function ProfileScreen({ navigation }) {
           </View>
           <TouchableOpacity
             style={styles.logoutButton}
-            activeOpacity={0.8}
+            activeOpacity={0.5}
             onPress={() => dispatch(logOut())}
           >
             <MaterialIcons name="logout" size={24} color={"#BDBDBD"} />

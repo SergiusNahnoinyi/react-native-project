@@ -113,7 +113,7 @@ export function RegistrationScreen({ navigation }) {
                 <Image style={styles.avatarImage} source={{ uri: avatar }} />
                 <TouchableOpacity
                   style={styles.avatarButton}
-                  activeOpacity={0.8}
+                  activeOpacity={0.5}
                   onPress={pickAvatar}
                 >
                   <Ionicons
@@ -185,7 +185,7 @@ export function RegistrationScreen({ navigation }) {
               </View>
               <TouchableOpacity
                 style={styles.submitButton}
-                activeOpacity={0.8}
+                activeOpacity={0.5}
                 onPress={handleSubmit}
               >
                 <Text style={styles.submitButtonText}>Sign up</Text>
@@ -195,7 +195,7 @@ export function RegistrationScreen({ navigation }) {
                   navigation.navigate("Login");
                   hideKeyboard();
                 }}
-                activeOpacity={0.8}
+                activeOpacity={0.5}
               >
                 <Text style={styles.loginLink}>
                   Do you already have an account? Log in

@@ -117,7 +117,7 @@ export function LoginScreen({ navigation }) {
               </View>
               <TouchableOpacity
                 style={styles.submitButton}
-                activeOpacity={0.8}
+                activeOpacity={0.5}
                 onPress={handleSubmit}
               >
                 <Text style={styles.submitButtonText}>Log in</Text>
@@ -127,7 +127,7 @@ export function LoginScreen({ navigation }) {
                   navigation.navigate("Registration");
                   hideKeyboard();
                 }}
-                activeOpacity={0.8}
+                activeOpacity={0.5}
               >
                 <Text style={styles.loginLink}>
                   Don't have an account? Sign up

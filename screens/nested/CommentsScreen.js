@@ -92,7 +92,7 @@ export function CommentsScreen({ route }) {
             />
             <TouchableOpacity
               style={styles.submitButton}
-              activeOpacity={0.8}
+              activeOpacity={0.5}
               onPress={handleSubmit}
             >
               <AntDesign name="arrowup" size={20} color="#FFFFFF" />

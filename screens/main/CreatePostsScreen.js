@@ -119,7 +119,7 @@ export function CreatePostsScreen({ navigation }) {
               <Camera style={styles.camera} ref={setCameraRef}>
                 <TouchableOpacity
                   style={styles.snapButton}
-                  activeOpacity={0.8}
+                  activeOpacity={0.5}
                   onPress={takePhoto}
                 >
                   <Ionicons name="camera" size={24} color={"grey"} />
@@ -137,7 +137,7 @@ export function CreatePostsScreen({ navigation }) {
               >
                 <TouchableOpacity
                   style={styles.editButton}
-                  activeOpacity={0.8}
+                  activeOpacity={0.5}
                   onPress={() => setPhoto(null)}
                 >
                   <Ionicons name="camera" size={24} color={"white"} />
@@ -171,7 +171,7 @@ export function CreatePostsScreen({ navigation }) {
                 ...styles.submitButton,
                 backgroundColor: photo ? "#FF6C00" : "#F6F6F6",
               }}
-              activeOpacity={0.8}
+              activeOpacity={0.5}
               onPress={handleSubmit}
               disabled={photo ? false : true}
             >

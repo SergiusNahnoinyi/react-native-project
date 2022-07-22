@@ -39,7 +39,7 @@ export function PostsList({ navigation, posts }) {
           <View style={styles.postsThumb}>
             <TouchableOpacity
               style={[styles.button, { marginRight: 24 }]}
-              activeOpacity={0.8}
+              activeOpacity={0.5}
               onPress={() =>
                 navigation.navigate("Comments", {
                   postPhoto: item.photo,
@@ -60,7 +60,7 @@ export function PostsList({ navigation, posts }) {
             </TouchableOpacity>
             <TouchableOpacity
               style={[styles.button, { marginRight: "auto" }]}
-              activeOpacity={0.8}
+              activeOpacity={0.5}
               onPress={() => setLike(item.postId, item.likes)}
             >
               <Feather
@@ -75,7 +75,7 @@ export function PostsList({ navigation, posts }) {
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.button}
-              activeOpacity={0.8}
+              activeOpacity={0.5}
               onPress={() =>
                 navigation.navigate("Maps", {
                   location: item.location,
