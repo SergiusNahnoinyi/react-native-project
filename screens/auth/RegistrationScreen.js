@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   TouchableWithoutFeedback,
   Keyboard,
@@ -23,10 +23,11 @@ import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 
 import { useTogglePasswordVisibility } from "../../hooks/useTogglePasswordVisibility";
 
-import { signUp, changeUsersAvatar } from "../../redux/auth/authOperations";
+import { signUp } from "../../redux/auth/authOperations";
 
 export function RegistrationScreen({ navigation }) {
   const [avatar, setAvatar] = useState(null);
+  const [avatarURL, setAvatarURL] = useState(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -38,6 +39,13 @@ export function RegistrationScreen({ navigation }) {
     email: false,
     password: false,
   });
+
+  useEffect(() => {
+    if (avatar === null) {
+      return;
+    }
+    uploadAvatarToStorage();
+  }, [avatar]);
 
   const dispatch = useDispatch();
 
@@ -58,12 +66,13 @@ export function RegistrationScreen({ navigation }) {
   const uploadAvatarToStorage = async () => {
     const response = await fetch(avatar);
     const file = await response.blob();
-    const storageRef = ref(storage, `avatars/${name}`);
+    const fileName = Date.now().toString();
+    const storageRef = ref(storage, `avatars/${fileName}`);
 
     await uploadBytes(storageRef, file);
-    const avatarURL = await getDownloadURL(storageRef);
+    const avatarUrl = await getDownloadURL(storageRef);
 
-    dispatch(changeUsersAvatar(avatarURL));
+    setAvatarURL(avatarUrl);
   };
 
   const handleInputFocus = (textInput) => {
@@ -84,11 +93,12 @@ export function RegistrationScreen({ navigation }) {
   };
 
   const handleSubmit = () => {
-    uploadAvatarToStorage();
-    dispatch(signUp({ name, email, password }));
+    dispatch(signUp({ name, email, password, avatarURL }));
     setName("");
     setEmail("");
     setPassword("");
+    setAvatar(null);
+    setAvatarURL("");
     hideKeyboard();
   };
 

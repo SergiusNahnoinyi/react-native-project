@@ -20,6 +20,7 @@ import { logOut, changeUsersAvatar } from "../../redux/auth/authOperations";
 import { PostsList } from "../../components/PostsList";
 
 export function ProfileScreen({ navigation }) {
+  const [avatar, setAvatar] = useState(null);
   const [posts, setPosts] = useState([]);
   const { userName, userId, userAvatar } = useSelector((state) => state.auth);
 
@@ -29,6 +30,13 @@ export function ProfileScreen({ navigation }) {
     getAllUsersPosts();
   }, []);
 
+  useEffect(() => {
+    if (avatar === null) {
+      return;
+    }
+    uploadAvatarToStorage();
+  }, [avatar]);
+
   const getAllUsersPosts = async () => {
     const q = query(collection(db, "posts"), where("userId", "==", userId));
 
@@ -37,17 +45,6 @@ export function ProfileScreen({ navigation }) {
         querySnapshot.docs.map((doc) => ({ ...doc.data(), postId: doc.id }))
       );
     });
-  };
-
-  const uploadAvatarToStorage = async (uri) => {
-    const response = await fetch(uri);
-    const file = await response.blob();
-    const storageRef = ref(storage, `avatars/${userName}`);
-
-    await uploadBytes(storageRef, file);
-    const avatarURL = await getDownloadURL(storageRef);
-
-    return avatarURL;
   };
 
   const pickAvatar = async () => {
@@ -60,9 +57,20 @@ export function ProfileScreen({ navigation }) {
     });
 
     if (!result.cancelled) {
-      const avatarURL = await uploadAvatarToStorage(result.uri);
-      dispatch(changeUsersAvatar(avatarURL));
+      setAvatar(result.uri);
     }
+  };
+
+  const uploadAvatarToStorage = async () => {
+    const response = await fetch(avatar);
+    const file = await response.blob();
+    const storageRef = ref(storage, `avatars/${userName}`);
+
+    await uploadBytes(storageRef, file);
+    const avatarURL = await getDownloadURL(storageRef);
+
+    dispatch(changeUsersAvatar(avatarURL));
+    setAvatar(null);
   };
 
   return (
