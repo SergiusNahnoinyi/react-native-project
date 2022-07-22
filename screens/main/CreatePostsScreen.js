@@ -52,11 +52,12 @@ export function CreatePostsScreen({ navigation }) {
     })();
   }, []);
 
-  if (hasCameraPermission && hasLocationPermission === null) {
+  if (hasCameraPermission === null && hasLocationPermission === null) {
     return <View />;
   }
-  if (hasCameraPermission && hasLocationPermission === false) {
-    return <Text>No access to the camera and location</Text>;
+
+  if (hasCameraPermission === false || hasLocationPermission === false) {
+    return <Text>No access to the camera or location</Text>;
   }
 
   const hideKeyboard = () => {
