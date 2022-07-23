@@ -59,6 +59,7 @@ export function ProfileScreen({ navigation }) {
 
     if (!result.cancelled) {
       setAvatar(result.uri);
+      dispatch(changeUsersAvatar(null));
     }
   };
 
@@ -129,8 +130,12 @@ const styles = StyleSheet.create({
     backgroundColor: "white",
   },
   avatarContainer: {
+    width: 120,
+    height: 120,
     position: "absolute",
     top: -60,
+    borderRadius: 16,
+    backgroundColor: "#F6F6F6",
   },
   avatarImage: {
     width: 120,
