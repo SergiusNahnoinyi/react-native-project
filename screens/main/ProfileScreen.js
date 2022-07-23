@@ -18,6 +18,7 @@ import { db, storage } from "../../firebase/config";
 
 import { logOut, changeUsersAvatar } from "../../redux/auth/authOperations";
 import { PostsList } from "../../components/PostsList";
+import { Loader } from "../../components/Loader";
 
 export function ProfileScreen({ navigation }) {
   const [avatar, setAvatar] = useState(null);
@@ -81,7 +82,11 @@ export function ProfileScreen({ navigation }) {
       >
         <View style={styles.profile}>
           <View style={styles.avatarContainer}>
-            <Image style={styles.avatarImage} source={{ uri: userAvatar }} />
+            {!userAvatar ? (
+              <Loader />
+            ) : (
+              <Image style={styles.avatarImage} source={{ uri: userAvatar }} />
+            )}
             <TouchableOpacity
               style={styles.avatarButton}
               activeOpacity={0.5}
