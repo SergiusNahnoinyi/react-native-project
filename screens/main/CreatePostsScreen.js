@@ -124,22 +124,7 @@ export function CreatePostsScreen({ navigation }) {
           behavior={Platform.OS == "ios" || "android" ? "position" : ""}
           keyboardVerticalOffset={100}
         >
-          {!photo ? (
-            <View style={styles.cameraContainer}>
-              <Camera style={styles.camera} ref={setCameraRef}>
-                <TouchableOpacity
-                  style={styles.snapButton}
-                  activeOpacity={0.5}
-                  onPress={takePhoto}
-                >
-                  <Ionicons name="camera" size={24} color={"grey"} />
-                </TouchableOpacity>
-              </Camera>
-              <Text style={styles.subtitle} onPress={takePhoto}>
-                Download a photo
-              </Text>
-            </View>
-          ) : (
+          {photo ? (
             <View style={styles.previewContainer}>
               <ImageBackground
                 source={{ uri: photo }}
@@ -155,6 +140,21 @@ export function CreatePostsScreen({ navigation }) {
               </ImageBackground>
               <Text style={styles.subtitle} onPress={() => setPhoto(null)}>
                 Edit your photo
+              </Text>
+            </View>
+          ) : (
+            <View style={styles.cameraContainer}>
+              <Camera style={styles.camera} ref={setCameraRef}>
+                <TouchableOpacity
+                  style={styles.snapButton}
+                  activeOpacity={0.5}
+                  onPress={takePhoto}
+                >
+                  <Ionicons name="camera" size={24} color={"grey"} />
+                </TouchableOpacity>
+              </Camera>
+              <Text style={styles.subtitle} onPress={takePhoto}>
+                Download a photo
               </Text>
             </View>
           )}
