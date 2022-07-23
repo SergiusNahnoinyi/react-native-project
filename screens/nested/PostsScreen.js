@@ -5,15 +5,20 @@ import { collection, onSnapshot, query, orderBy } from "firebase/firestore";
 
 import { db } from "../../firebase/config";
 import { PostsList } from "../../components/PostsList";
+import { Loader } from "../../components/Loader";
 
 export function PostsScreen({ navigation }) {
   const [posts, setPosts] = useState([]);
+  const [animate, setAnimate] = useState(true);
   const { userName, userEmail, userAvatar } = useSelector(
     (state) => state.auth
   );
 
   useEffect(() => {
-    getAllPosts();
+    setTimeout(() => {
+      getAllPosts();
+      setAnimate(false);
+    }, 2000);
   }, []);
 
   const getAllPosts = async () => {
@@ -35,6 +40,7 @@ export function PostsScreen({ navigation }) {
           <Text style={styles.userEmail}>{userEmail}</Text>
         </View>
       </View>
+      <Loader animate={animate} />
       <PostsList posts={posts} navigation={navigation} />
     </View>
   );
