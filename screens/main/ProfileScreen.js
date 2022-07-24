@@ -23,6 +23,7 @@ import { Loader } from "../../components/Loader";
 export function ProfileScreen({ navigation }) {
   const [avatar, setAvatar] = useState(null);
   const [posts, setPosts] = useState([]);
+  const [animate, setAnimate] = useState(false);
   const { userName, userId, userAvatar } = useSelector((state) => state.auth);
 
   const dispatch = useDispatch();
@@ -60,6 +61,7 @@ export function ProfileScreen({ navigation }) {
     if (!result.cancelled) {
       setAvatar(result.uri);
       dispatch(changeUsersAvatar(null));
+      setAnimate(true);
     }
   };
 
@@ -73,6 +75,7 @@ export function ProfileScreen({ navigation }) {
 
     dispatch(changeUsersAvatar(avatarURL));
     setAvatar(null);
+    setAnimate(false);
   };
 
   return (
@@ -84,7 +87,7 @@ export function ProfileScreen({ navigation }) {
         <View style={styles.profile}>
           <View style={styles.avatarContainer}>
             {!userAvatar ? (
-              <Loader />
+              <Loader animate={animate} />
             ) : (
               <Image style={styles.avatarImage} source={{ uri: userAvatar }} />
             )}
