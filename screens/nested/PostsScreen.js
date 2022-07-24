@@ -15,10 +15,18 @@ export function PostsScreen({ navigation }) {
   );
 
   useEffect(() => {
-    setTimeout(() => {
-      getAllPosts();
-      setAnimate(false);
-    }, 2000);
+    let isPostsLoaded = false;
+
+    if (!isPostsLoaded) {
+      setTimeout(() => {
+        getAllPosts();
+        setAnimate(false);
+      }, 2000);
+    }
+
+    return function cleanup() {
+      isPostsLoaded = true;
+    };
   }, []);
 
   const getAllPosts = async () => {
