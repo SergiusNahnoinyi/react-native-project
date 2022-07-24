@@ -17,7 +17,7 @@ export function NavigationSwitch() {
 
   return (
     <NavigationContainer>
-      {!isAuthorized ? <AuthStackNavigator /> : <BottomTabNavigator />}
+      {isAuthorized ? <BottomTabNavigator /> : <AuthStackNavigator />}
     </NavigationContainer>
   );
 }
